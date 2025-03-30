@@ -1,16 +1,27 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Accessibility } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X, Accessibility, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/lib/authContext';
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const { user } = useAuth();
 
   const handleLogin = () => {
     router.push('/login');
+  };
+
+  const handleSignup = () => {
+    router.push('/signup');
+  };
+
+  const handleProfile = () => {
+    router.push('/profile');
   };
 
   return (
@@ -48,16 +59,69 @@ const NavBar = () => {
               Companies
             </Link>
 
-            <Button 
-              className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-5 py-2 h-10 text-sm font-medium ml-2"
-              onClick={handleLogin}
-            >
-              Login
-            </Button>
+            {user ? (
+              <div 
+                onClick={handleProfile}
+                className="cursor-pointer flex items-center ml-2"
+              >
+                <div className="h-9 w-9 rounded-full overflow-hidden relative border-2 border-blue-600 hover:border-blue-700 transition-colors">
+                  {user.photoURL ? (
+                    <Image 
+                      src={user.photoURL}
+                      alt={user.displayName || "Profile"}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="(max-width: 768px) 100vw, 36px"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-blue-100 flex items-center justify-center">
+                      <User className="w-5 h-5 text-blue-600" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <>
+                <Button 
+                  className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-5 py-2 h-10 text-sm font-medium ml-2"
+                  onClick={handleLogin}
+                >
+                  Login
+                </Button>
+                <Button 
+                  className="bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md px-5 py-2 h-10 text-sm font-medium"
+                  onClick={handleSignup}
+                >
+                  Sign Up
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
+            {user && (
+              <div 
+                onClick={handleProfile}
+                className="cursor-pointer mr-3"
+              >
+                <div className="h-8 w-8 rounded-full overflow-hidden relative border-2 border-blue-600">
+                  {user.photoURL ? (
+                    <Image 
+                      src={user.photoURL}
+                      alt={user.displayName || "Profile"}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="32px"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-blue-100 flex items-center justify-center">
+                      <User className="w-4 h-4 text-blue-600" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-md text-gray-700"
@@ -98,17 +162,32 @@ const NavBar = () => {
                 Companies
               </Link>
               
-              <div className="pt-2 pb-3">
-                <Button 
-                  className="bg-blue-600 hover:bg-blue-700 text-white rounded-md w-full py-2 h-10 text-sm font-medium"
-                  onClick={() => {
-                    router.push('/login');
-                    setMobileMenuOpen(false);
-                  }}
-                >
-                  Login
-                </Button>
-              </div>
+              {!user && (
+                <>
+                  <div className="pt-2 pb-1">
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700 text-white rounded-md w-full py-2 h-10 text-sm font-medium"
+                      onClick={() => {
+                        router.push('/login');
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      Login
+                    </Button>
+                  </div>
+                  <div className="pb-3">
+                    <Button 
+                      className="bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-md w-full py-2 h-10 text-sm font-medium"
+                      onClick={() => {
+                        router.push('/signup');
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      Sign Up
+                    </Button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )}

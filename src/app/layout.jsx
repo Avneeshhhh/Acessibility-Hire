@@ -1,5 +1,6 @@
 import { Rubik, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/lib/authContext";
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -85,7 +86,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${rubik.variable} ${spaceGrotesk.variable}`}>
       <body className={`min-h-screen font-sans ${rubik.className}`}>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
