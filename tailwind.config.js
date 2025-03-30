@@ -18,10 +18,12 @@ module.exports = {
   	extend: {
   		fontFamily: {
   			sans: [
-  				'var(--font-rubik)'
+  				'var(--font-poppins)',
+  				'sans-serif'
   			],
   			display: [
-  				'var(--font-space-grotesk)'
+  				'var(--font-poppins)',
+  				'sans-serif'
   			]
   		},
   		colors: {

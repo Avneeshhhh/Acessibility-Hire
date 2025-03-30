@@ -14,7 +14,7 @@ const jobSeekerFeatures = [
     icon: Users,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/temp1.jpeg",
+    image: "/images/image1.jpeg",
     benefits: ["Curated job posts from inclusive employers", "Filter by accessibility accommodations", "Companies verified for inclusion practices"]
   },
   {
@@ -24,7 +24,7 @@ const jobSeekerFeatures = [
     icon: Building,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/img2.jpg",
+    image: "/images/image2.jpeg",
     benefits: ["Direct messaging with hiring managers", "Company profiles highlighting inclusion initiatives", "Networking events and webinars"]
   },
   {
@@ -34,7 +34,7 @@ const jobSeekerFeatures = [
     icon: Award,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/temp2.jpeg",
+    image: "/images/image3.jpeg",
     benefits: ["Resume building tailored for accessibility", "Interview preparation guides", "Career development webinars"]
   }
 ];
@@ -47,7 +47,7 @@ const employerFeatures = [
     icon: Users,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/img5.jpeg"
+    image: "/images/talent.jpeg"
   },
   {
     id: 'commitment-to-diversity-inclusion',
@@ -56,7 +56,7 @@ const employerFeatures = [
     icon: Award,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/img6.jpg"
+    image: "/images/commitment.jpeg"
   },
   {
     id: 'simple-hiring-process',
@@ -65,7 +65,7 @@ const employerFeatures = [
     icon: Zap,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/temp2.jpeg"
+    image: "/images/hiringprocess.jpeg"
   }
 ];
 
@@ -100,12 +100,15 @@ const ATSFor = () => {
     <div className="py-12 w-full bg-white">
       {/* Job Seekers Section */}
       <section className="py-20 w-full relative overflow-hidden">
-        {/* Background Elements - Simplified */}
+        {/* Background Elements - Enhanced */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-40"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] opacity-40"></div>
+          {/* Enhanced background circles */}
+          <div className="absolute top-10 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-100/20 blur-[120px] opacity-30" aria-hidden="true"></div>
+          <div className="absolute bottom-20 right-10 w-[400px] h-[400px] rounded-full bg-purple-100/20 blur-[80px] opacity-20" aria-hidden="true"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container-fluid mx-auto px-3 sm:px-5 md:px-6 lg:px-10 xl:px-14 2xl:px-16 max-w-[1920px] relative z-10">
           {/* Section Header - More Prominent */}
           <div className="text-center max-w-4xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 text-sm font-semibold bg-blue-50 text-blue-600 rounded-full border border-blue-100">
@@ -124,9 +127,9 @@ const ATSFor = () => {
           </div>
 
           {/* Main Feature Showcase */}
-          <div className="max-w-6xl mx-auto">
-            {/* Feature Cards - Larger Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="max-w-[1800px] mx-auto">
+            {/* Feature Cards - Larger Grid with wider spacing */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 xl:gap-12 mb-16 px-0 xl:px-8 2xl:px-16">
               {jobSeekerFeatures.map((feature, index) => (
                 <motion.div
                   key={feature.id}
@@ -204,12 +207,17 @@ const ATSFor = () => {
         </div>
       </section>
 
-      {/* Employers Section - More Compact */}
+      {/* Employers Section - Expanded */}
       <section className="w-full relative overflow-hidden py-16 bg-gray-50">
-        {/* Simplified Background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-40"></div>
+        {/* Enhanced Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] opacity-40"></div>
+          {/* Enhanced background circles */}
+          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-blue-200/10 blur-[100px] opacity-30" aria-hidden="true"></div>
+          <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-purple-200/10 blur-[80px] opacity-20" aria-hidden="true"></div>
+        </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container-fluid mx-auto px-3 sm:px-5 md:px-6 lg:px-10 xl:px-14 2xl:px-16 max-w-[1920px] relative z-10">
           {/* Section Header - More Compact */}
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 text-sm font-semibold bg-blue-50 text-blue-600 rounded-full border border-blue-100">
@@ -226,24 +234,35 @@ const ATSFor = () => {
             </p>
           </div>
 
-          {/* Main Feature Area - More Compact Grid */}
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              {/* Left Side - Smaller Visual */}
-              <div className="relative">
-                <div className="relative h-[300px] w-full rounded-lg overflow-hidden shadow-lg">
+          {/* Main Feature Area - Expanded Grid */}
+          <div className="max-w-[1800px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start px-0 xl:px-8 2xl:px-16">
+              {/* Left Side - Visual with height matching right side */}
+              <div className="relative h-full flex justify-center lg:justify-end xl:pr-8">
+                <div className="relative h-[420px] w-[800px] max-w-5xl lg:max-w-full rounded-lg overflow-hidden shadow-lg">
                   {/* Main image */}
-                  <Image
-                    src="/images/img5.jpeg"
-                    alt="Inclusive workplace meeting"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeEmployerFeature}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={activeEmployerData.image || "/images/img5.jpeg"}
+                        alt={activeEmployerData.title || "Inclusive workplace meeting"}
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
                   
-                  {/* Overlay content - More Compact */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-10">
+                  {/* Overlay content - Better positioned */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16">
                     <h3 className="text-xl font-bold text-white mb-2">Join Leading Employers</h3>
                     <p className="text-white/90 mb-3 text-sm max-w-md">
                       Join hundreds of forward-thinking companies creating more diverse and inclusive workplaces.
@@ -256,30 +275,46 @@ const ATSFor = () => {
                 </div>
               </div>
               
-              {/* Right Side - Interactive Features - More Compact */}
-              <div className="space-y-4">
+              {/* Right Side - Interactive Features with better spacing */}
+              <div className="space-y-5 h-full flex flex-col justify-between max-w-2xl mx-auto lg:mx-0 lg:ml-0 xl:pl-8">
                 {employerFeatures.map((feature, index) => (
                   <div
                     key={feature.id}
-                    className="group"
+                    className="group cursor-pointer"
+                    onClick={() => setActiveEmployerFeature(feature.id)}
                   >
-                    <div className={`relative overflow-hidden rounded-lg border border-gray-100 bg-white p-4 shadow-md transition-all duration-300 hover:shadow-lg ${
-                      activeEmployerFeature === feature.id ? 'ring-1 ring-blue-500' : ''
+                    <div className={`relative overflow-hidden rounded-lg border ${
+                      activeEmployerFeature === feature.id ? 'border-blue-400 bg-blue-50/50' : 'border-gray-100 bg-white'
+                    } p-4 shadow-md transition-all duration-300 hover:shadow-lg ${
+                      activeEmployerFeature === feature.id ? 'ring-2 ring-blue-500' : ''
                     }`}>
                       <div className="flex items-start gap-4">
                         <div className="shrink-0">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50">
+                          <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                            activeEmployerFeature === feature.id ? 'bg-blue-100' : 'bg-blue-50'
+                          }`}>
                             <feature.icon className="h-5 w-5 text-blue-600" />
                           </div>
                         </div>
                         
-                        <div>
-                          <h3 className="text-base font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">
+                        <div className="flex-1">
+                          <h3 className={`text-base font-bold mb-1 transition-colors ${
+                            activeEmployerFeature === feature.id ? 'text-blue-600' : 'text-gray-800 group-hover:text-blue-600'
+                          }`}>
                             {feature.title}
                           </h3>
                           <p className="text-xs text-gray-600 mb-2">
                             {feature.description}
                           </p>
+                        </div>
+
+                        {/* Visual indicator that card is clickable */}
+                        <div className={`ml-1 flex items-center justify-center w-5 h-5 rounded-full ${
+                          activeEmployerFeature === feature.id ? 'bg-blue-500' : 'bg-gray-100 group-hover:bg-blue-100'
+                        } transition-colors`}>
+                          <CheckCircle className={`w-3 h-3 ${
+                            activeEmployerFeature === feature.id ? 'text-white' : 'text-gray-400 group-hover:text-blue-500'
+                          } transition-colors`} />
                         </div>
                       </div>
                     </div>

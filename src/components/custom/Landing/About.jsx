@@ -44,6 +44,13 @@ const About = () => {
       description: "Make decisions based on real performance metrics that directly impact your hiring success.",
       color: "linear-gradient(to bottom right, #10b981, #059669)",
       link: "/features"
+    },
+    {
+      icon: Sparkles,
+      title: "Inclusive Hiring",
+      description: "Expand your talent pool with tools specifically designed to reach and engage diverse candidates.",
+      color: "linear-gradient(to bottom right, #f59e0b, #d97706)",
+      link: "/features"
     }
   ];
 
@@ -55,9 +62,9 @@ const About = () => {
       </div>
       
       <div className="container mx-auto px-5 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-14 md:mb-16">
-          <div className="flex items-center justify-center gap-2 mb-5">
+        {/* Section Header - Left Aligned with scroll hint */}
+        <div className="text-left max-w-4xl mb-10 md:mb-12">
+          <div className="flex items-center gap-2 mb-5">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 text-sm font-bold text-blue-700 rounded-full border border-blue-100 bg-white">
               <Sparkles className="w-4 h-4 text-blue-500" />
               <span>ABOUT US</span>
@@ -73,14 +80,14 @@ const About = () => {
             </span>
           </h2>
           
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl">
             We're building the future of hiring by combining human expertise with cutting-edge AI technology.
           </p>
         </div>
 
-        {/* Content Grid - Full Width */}
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+        {/* Content Grid - Left Aligned - Single row for 4 cards */}
+        <div className="w-full overflow-x-auto pb-6 scrollbar-hide mask-fade-right">
+          <div className="flex flex-nowrap gap-5 md:gap-6 px-1 py-2 md:pl-0">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -89,7 +96,7 @@ const About = () => {
                 initial="hidden"
                 animate={featureInView ? "visible" : "hidden"}
                 custom={index}
-                className="relative bg-white p-7 md:p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden group"
+                className="relative bg-white p-7 md:p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group flex-shrink-0 w-[85%] sm:w-[45%] md:w-[30%] lg:w-[24%] min-w-[280px]"
               >
                 <div className="mb-5 md:mb-6">
                   <div className="w-14 h-14 flex items-center justify-center rounded-xl text-white" style={{ background: feature.color }}>
@@ -107,8 +114,16 @@ const About = () => {
             ))}
           </div>
           
-          {/* CTA Button */}
-          <div className="flex justify-center mt-10 md:mt-16">
+          {/* Scroll Indicator */}
+          <div className="mt-4 flex items-center gap-2">
+            <div className="h-1 w-12 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-full w-1/3 bg-blue-500 rounded-full"></div>
+            </div>
+            <span className="text-xs text-gray-500">Scroll to see more</span>
+          </div>
+          
+          {/* CTA Button - Left Aligned */}
+          <div className="flex justify-start mt-10 md:mt-16">
             <Link href="/about">
               <button className="py-3 px-7 bg-blue-600 hover:bg-blue-700 text-white text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2">
                 Learn more about us

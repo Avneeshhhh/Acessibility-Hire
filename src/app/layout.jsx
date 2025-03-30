@@ -1,17 +1,11 @@
-import { Rubik, Space_Grotesk } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/authContext";
 
-const rubik = Rubik({
+const poppins = Poppins({
   subsets: ['latin'],
-  variable: '--font-rubik',
-  display: 'swap',
-  preload: true
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-space-grotesk',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-poppins',
   display: 'swap',
   preload: true
 });
@@ -84,8 +78,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${rubik.variable} ${spaceGrotesk.variable}`}>
-      <body className={`min-h-screen font-sans ${rubik.className}`}>
+    <html lang="en" className={`${poppins.variable}`}>
+      <body className={`min-h-screen font-sans ${poppins.className}`}>
         <AuthProvider>
           {children}
         </AuthProvider>
