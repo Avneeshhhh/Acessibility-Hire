@@ -1,161 +1,123 @@
 "use client";
-import React, { useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Target, LineChart, Sparkles, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
 
 const About = () => {
   const containerRef = useRef(null);
+  const featureRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+  const featureInView = useInView(featureRef, { once: true, amount: 0.2 });
+  
+  // Feature animation variants
+  const featureVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5
+      }
+    })
+  };
   
   const features = [
     {
       icon: BrainCircuit,
       title: "AI-Powered Insights",
       description: "Our advanced algorithms analyze recruitment data to provide actionable insights and predictions.",
-      iconBg: "from-blue-400 to-blue-600"
+      color: "linear-gradient(to bottom right, #3b82f6, #1d4ed8)",
+      link: "/features"
     },
     {
       icon: Target,
       title: "Precision Matching",
       description: "Connect with candidates whose skills and aspirations align perfectly with your requirements.",
-      iconBg: "from-purple-400 to-indigo-600"
+      color: "linear-gradient(to bottom right, #8b5cf6, #4f46e5)",
+      link: "/features"
     },
     {
       icon: LineChart,
       title: "Data-Driven Results",
       description: "Make decisions based on real performance metrics that directly impact your hiring success.",
-      iconBg: "from-teal-400 to-emerald-600"
+      color: "linear-gradient(to bottom right, #10b981, #059669)",
+      link: "/features"
     }
   ];
 
   return (
-    <section ref={containerRef} id="about" className="py-36 md:py-40 relative overflow-hidden">
-      {/* Advanced Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/20 to-white">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"></div>
-        
-        {/* Animated gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-300/10 blur-[120px] opacity-40 animate-blob"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-[600px] h-[600px] rounded-full bg-purple-300/10 blur-[150px] opacity-30 animate-blob animation-delay-2000"></div>
+    <section ref={containerRef} id="about" className="py-20 md:py-28 relative overflow-hidden">
+      {/* Simplified background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/10 to-white">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
       </div>
       
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 border-8 border-blue-100/20 rounded-full transform -rotate-12 hidden lg:block"></div>
-      <div className="absolute bottom-40 right-20 w-24 h-24 border-4 border-purple-100/30 rounded-xl transform rotate-12 hidden lg:block"></div>
-      <div className="absolute top-1/2 right-10 w-40 h-1 bg-gradient-to-r from-blue-500/20 to-transparent hidden lg:block"></div>
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="container mx-auto px-5 relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-blue-500 opacity-30"></div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-sm border border-blue-100 bg-white">
+        <div className="text-center max-w-4xl mx-auto mb-14 md:mb-16">
+          <div className="flex items-center justify-center gap-2 mb-5">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 text-sm font-bold text-blue-700 rounded-full border border-blue-100 bg-white">
               <Sparkles className="w-4 h-4 text-blue-500" />
               <span>ABOUT US</span>
             </div>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-500 opacity-30"></div>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-gray-900">
+            <span className="text-blue-700">
               Reimagining
-            </span> recruitment for the <br /> 
+            </span> recruitment for the <br className="hidden md:block" /> 
             <span className="relative inline-block">
               modern era
-              <motion.div
-                initial={{ width: "0%" }}
-                animate={isInView ? { width: "100%" } : { width: "0%" }}
-                transition={{ delay: 0.5, duration: 1, ease: "easeInOut" }}
-                className="absolute h-1 bg-gradient-to-r from-blue-400 to-purple-400 bottom-0 left-0 -mb-2"
-              ></motion.div>
             </span>
           </h2>
           
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
-          >
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
             We're building the future of hiring by combining human expertise with cutting-edge AI technology.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         {/* Content Grid - Full Width */}
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-                className="group"
+                ref={index === 0 ? featureRef : null}
+                variants={featureVariants}
+                initial="hidden"
+                animate={featureInView ? "visible" : "hidden"}
+                custom={index}
+                className="relative bg-white p-7 md:p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden group"
               >
-                <div className="relative p-6 md:p-8 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full">
-                  <div className="absolute top-0 right-0 h-24 w-24 bg-gradient-to-bl from-blue-100 to-transparent opacity-30 transform translate-x-10 -translate-y-10 rounded-full"></div>
-                  
-                  {/* Icon */}
-                  <div className="mb-6">
-                    <div className={`flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br ${feature.iconBg} shadow-lg transition-transform duration-300 group-hover:scale-110`}>
-                      <feature.icon className="h-8 w-8 text-white" />
-                    </div>
+                <div className="mb-5 md:mb-6">
+                  <div className="w-14 h-14 flex items-center justify-center rounded-xl text-white" style={{ background: feature.color }}>
+                    <feature.icon className="w-7 h-7" />
                   </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {feature.description}
-                  </p>
                 </div>
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-gray-900">{feature.title}</h3>
+                <p className="text-base md:text-lg text-gray-600 mb-5 md:mb-6">{feature.description}</p>
+                
+                <Link href={feature.link} className="inline-flex items-center text-base font-medium text-blue-600 hover:text-blue-700">
+                  Learn more
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
               </motion.div>
             ))}
           </div>
           
           {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex justify-center mt-12"
-          >
+          <div className="flex justify-center mt-10 md:mt-16">
             <Link href="/about">
-              <button className="group relative overflow-hidden py-4 px-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  Learn more about us
-                  <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500"></span>
+              <button className="py-3 px-7 bg-blue-600 hover:bg-blue-700 text-white text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2">
+                Learn more about us
+                <ArrowRight className="w-5 h-5" />
               </button>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
-
-      {/* Add some custom styles for the animations */}
-      <style jsx global>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(20px, -30px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 10s infinite ease-in-out;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-      `}</style>
     </section>
   );
 };

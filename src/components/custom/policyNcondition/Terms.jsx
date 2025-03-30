@@ -67,19 +67,19 @@ const Terms = () => {
               <div id="terms" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Terms</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  By accessing this Website, accessible from Hiremod, you are agreeing to be bound by these Website Terms and Conditions of Use and agree that you are responsible for the agreement with any applicable local laws. If you disagree with any of these terms, you are prohibited from accessing this site. The materials contained in this Website are protected by copyright and trade mark law.
+                  By accessing this Website, accessible from Accessibility Hire, you are agreeing to be bound by these Website Terms and Conditions of Use and agree that you are responsible for the agreement with any applicable local laws. If you disagree with any of these terms, you are prohibited from accessing this site. The materials contained in this Website are protected by copyright and trade mark law.
                 </p>
               </div>
 
               <div id="use-license" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Use License</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Permission is granted to temporarily download one copy of the materials (information or software) on Hiremod's Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                  Permission is granted to temporarily download one copy of the materials (information or software) on Accessibility Hire's Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
                 </p>
                 <ul className="list-disc pl-6 mt-2 text-gray-600 dark:text-gray-400">
                   <li>modify or copy the materials;</li>
                   <li>use the materials for any commercial purpose or for any public display;</li>
-                  <li>attempt to reverse engineer any software contained on Hiremod's Website;</li>
+                  <li>attempt to reverse engineer any software contained on Accessibility Hire's Website;</li>
                   <li>remove any copyright or other proprietary notations from the materials; or</li>
                   <li>transfer the materials to another person or 'mirror' the materials on any other server.</li>
                 </ul>
@@ -88,42 +88,42 @@ const Terms = () => {
               <div id="disclaimer" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Disclaimer</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  All the materials on Hiremod's Website are provided "as is". Hiremod makes no warranties, may it be expressed or implied, therefore negates all other warranties. Furthermore, Hiremod does not make any representations concerning the accuracy or reliability of the use of the materials on its Website or otherwise relating to such materials or any sites linked to this Website.
+                  All the materials on Accessibility Hire's Website are provided "as is". Accessibility Hire makes no warranties, may it be expressed or implied, therefore negates all other warranties. Furthermore, Accessibility Hire does not make any representations concerning the accuracy or reliability of the use of the materials on its Website or otherwise relating to such materials or any sites linked to this Website.
                 </p>
               </div>
 
               <div id="limitations" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Limitations</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Hiremod or its suppliers will not be held accountable for any damages that will arise with the use or inability to use the materials on Hiremod's Website, even if Hiremod or an authorized representative of this Website has been notified, orally or written, of the possibility of such damage.
+                  Accessibility Hire or its suppliers will not be held accountable for any damages that will arise with the use or inability to use the materials on Accessibility Hire's Website, even if Accessibility Hire or an authorized representative of this Website has been notified, orally or written, of the possibility of such damage.
                 </p>
               </div>
 
               <div id="revisions" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Revisions and Errata</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  The materials appearing on Hiremod's Website may include technical, typographical, or photographic errors. Hiremod does not warrant that any of the materials on its Website are accurate, complete, or current. Hiremod may make changes to the materials contained on its Website at any time without notice.
+                  The materials appearing on Accessibility Hire's Website may include technical, typographical, or photographic errors. Accessibility Hire does not warrant that any of the materials on its Website are accurate, complete, or current. Accessibility Hire may make changes to the materials contained on its Website at any time without notice.
                 </p>
               </div>
 
               <div id="links" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Links</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Hiremod has not reviewed all of the sites linked to its Website and is not responsible for the contents of any such linked site. The presence of any link does not imply endorsement by Hiremod of the site. The use of any linked website is at the user's own risk.
+                  Accessibility Hire has not reviewed all of the sites linked to its Website and is not responsible for the contents of any such linked site. The presence of any link does not imply endorsement by Accessibility Hire of the site. The use of any linked website is at the user's own risk.
                 </p>
               </div>
 
               <div id="modifications" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Terms Modifications</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Hiremod may revise these Terms of Use for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.
+                  Accessibility Hire may revise these Terms of Use for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.
                 </p>
               </div>
 
               <div id="governing-law" className="scroll-mt-16">
                 <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Governing Law</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Any claim related to Hiremod's Website shall be governed by the laws of the country without regards to its conflict of law provisions.
+                  Any claim related to Accessibility Hire's Website shall be governed by the laws of the country without regards to its conflict of law provisions.
                 </p>
               </div>
 

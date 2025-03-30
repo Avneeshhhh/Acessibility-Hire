@@ -19,10 +19,10 @@ export default function Home() {
       {/* <Companies /> */}
       <ATSFor />
       <CareerNetwork />
-      <Pills />
+      {/* <Pills /> */}
       <About />
       {/* <FAQ /> */}
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Footer />
       <ChatBotWrapper />
     </main>

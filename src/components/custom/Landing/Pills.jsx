@@ -41,131 +41,112 @@ const Pills = () => {
     { value: "80%", label: "Retention Improvement", icon: Users }
   ];
 
-  // Animation variants
+  // Simple animation variants with reduced complexity
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2 }
+      transition: { staggerChildren: 0.1 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.4, ease: "easeOut" }
     }
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
-      {/* Hexagonal background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute w-full h-full bg-[url('/images/hex-pattern.png')] bg-repeat bg-[length:400px_400px]"></div>
-      </div>
-      
-      {/* Animated gradient orbs */}
-      <div className="absolute top-20 left-10 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute top-40 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    <section className="py-10 md:py-16 lg:py-20 relative overflow-hidden bg-white">
+      {/* Removed animated gradient orbs for better performance */}
+      <div className="absolute inset-0 bg-blue-50/50"></div>
 
-      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-        {/* Section Header with gradient accent */}
-        <div className="mb-16 max-w-3xl relative">
-          <div className="w-20 h-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-6"></div>
-          <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 uppercase tracking-wider mb-3 block">
+      <div className="container mx-auto px-3 sm:px-4 relative z-10 max-w-5xl">
+        {/* Section Header with improved text contrast */}
+        <div className="mb-8 md:mb-12 max-w-3xl mx-auto text-center sm:text-left sm:mx-0">
+          <div className="w-16 h-2 bg-blue-600 rounded-full mb-4 mx-auto sm:mx-0"></div>
+          <span className="text-sm font-bold text-blue-800 uppercase tracking-wider mb-2 block">
             NEXT-GEN TALENT ACQUISITION
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
             Beyond Traditional<br /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Hiring Pipelines</span>
+            <span className="text-blue-800">Hiring Pipelines</span>
           </h2>
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-gray-900 text-sm md:text-base leading-relaxed max-w-2xl mx-auto sm:mx-0">
             Our intelligent platform transforms how you discover and secure top talent, combining cutting-edge AI technology with human-centered processes to reduce time-to-hire while maximizing quality matches.
           </p>
         </div>
 
-        {/* Interactive Process Showcase */}
-        <div className="flex flex-col lg:flex-row items-start gap-16 mb-20">
+        {/* Interactive Process Showcase with improved visibility */}
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 md:gap-8 mb-10 md:mb-16">
           {/* Left Side - Interactive Steps */}
-          <div className="w-full lg:w-[45%] space-y-6">
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerVariants}
-              className="relative"
-            >
+          <div className="w-full lg:w-[48%] space-y-4">
+            <div className="relative">
               {/* Progress Track */}
-              <div className="absolute left-[27px] top-[75px] h-[calc(100%-150px)] w-1 bg-gray-200 rounded-full"></div>
+              <div className="absolute left-[23px] top-[60px] h-[calc(100%-120px)] w-1 bg-gray-200 rounded-full"></div>
               
               {steps.map((step, index) => (
-                <motion.div 
-                  key={index} 
-                  variants={itemVariants}
-                  className="relative"
-                >
+                <div key={index} className="relative">
                   <button 
                     onClick={() => setActiveStep(index)}
-                    className={`w-full text-left mb-8 group transition-all duration-300 ${
-                      activeStep === index ? "scale-105" : "hover:scale-102"
+                    className={`w-full text-left mb-5 group transition-all duration-200 ${
+                      activeStep === index ? "scale-[1.02]" : "hover:scale-[1.01]"
                     }`}
                   >
                     <div className="flex items-start">
-                      {/* Step marker with animated progress fill */}
-                      <div className="relative mr-6">
-                        <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-2 border-white ${
+                      {/* Step marker with simpler design */}
+                      <div className="relative mr-3 md:mr-4">
+                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-md border-2 border-white ${
                           index <= activeStep 
-                            ? "bg-gradient-to-br from-blue-500 to-indigo-600" 
+                            ? "bg-blue-600" 
                             : "bg-white"
                         }`}>
-                          <span className={`text-lg font-bold ${
+                          <span className={`text-sm md:text-base font-bold ${
                             index <= activeStep ? "text-white" : "text-gray-400"
                           }`}>{index + 1}</span>
                         </div>
-                        {/* Active indicator */}
+                        {/* Simplified active indicator */}
                         {activeStep === index && (
-                          <div className="absolute -inset-1 border-2 border-blue-500 rounded-full animate-pulse"></div>
+                          <div className="absolute -inset-1 border-2 border-blue-500 rounded-full"></div>
                         )}
                         
                         {/* Completed step checkmark */}
                         {index < activeStep && (
-                          <div className="absolute -right-1 -bottom-1 bg-green-500 rounded-full w-6 h-6 flex items-center justify-center border-2 border-white">
+                          <div className="absolute -right-1 -bottom-1 bg-green-500 rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
                             <CheckCircle className="w-3 h-3 text-white" />
                           </div>
                         )}
                       </div>
                       
-                      {/* Step Content Card */}
-                      <div className={`flex-1 p-6 rounded-xl transition-all duration-300 ${
+                      {/* Step Content Card with better text contrast */}
+                      <div className={`flex-1 p-3 md:p-4 rounded-lg transition-all duration-300 ${
                         activeStep === index 
-                          ? "bg-white shadow-xl border border-blue-100" 
-                          : "bg-white/60 shadow-md hover:shadow-lg border border-gray-100"
+                          ? "bg-white shadow-md border border-blue-100" 
+                          : "bg-white shadow-sm hover:shadow border border-gray-100"
                       }`}>
-                        <div className="flex items-start gap-4">
-                          <div className={`shrink-0 w-12 h-12 ${step.iconBg} rounded-lg flex items-center justify-center shadow-lg transform transition-transform ${
-                            activeStep === index ? "scale-110" : "group-hover:scale-105"
-                          }`}>
-                            <step.icon className={`w-6 h-6 ${step.iconColor}`} />
+                        <div className="flex items-start gap-2 md:gap-3">
+                          <div className={`shrink-0 w-8 h-8 md:w-10 md:h-10 ${step.iconBg} rounded-md flex items-center justify-center shadow-md`}>
+                            <step.icon className={`w-4 h-4 md:w-5 md:h-5 ${step.iconColor}`} />
                           </div>
                           <div className="flex-1">
-                            <div className="flex justify-between items-center mb-2">
-                              <h3 className={`text-xl font-bold transition-colors ${
-                                activeStep === index ? "text-blue-600" : "text-gray-800"
+                            <div className="flex justify-between items-center mb-1">
+                              <h3 className={`text-base md:text-lg font-bold transition-colors ${
+                                activeStep === index ? "text-blue-800" : "text-gray-900"
                               }`}>
                                 {step.title}
                               </h3>
                               {activeStep === index && (
-                                <ChevronRight className="w-5 h-5 text-blue-500" />
+                                <ChevronRight className="w-4 h-4 text-blue-600" />
                               )}
                             </div>
-                            <p className="text-gray-600 mb-3">
+                            <p className="text-gray-800 text-xs md:text-sm mb-2">
                               {step.description}
                             </p>
-                            <div className="flex items-center text-xs font-semibold text-blue-600 bg-blue-50 rounded-full py-1 px-3 w-fit">
-                              <Activity className="w-3 h-3 mr-1" />
+                            <div className="flex items-center text-[10px] md:text-xs font-semibold text-blue-800 bg-blue-50 rounded-full py-0.5 px-2 w-fit">
+                              <Activity className="w-2.5 h-2.5 mr-1" />
                               {step.stats}
                             </div>
                           </div>
@@ -173,149 +154,105 @@ const Pills = () => {
                       </div>
                     </div>
                   </button>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
-          {/* Right Side - Dynamic Visual */}
-          <div className="w-full lg:w-[55%]">
-            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white group">
-              {/* Main visualization */}
-              <div className="absolute inset-0 overflow-hidden">
-                <motion.div
-                  key={activeStep}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="h-full w-full"
-                >
+          {/* Right Side - Dynamic Visual with improved visibility */}
+          <div className="w-full lg:w-[52%]">
+            <div className="relative h-[350px] md:h-[450px] rounded-lg overflow-hidden shadow-md border border-gray-200 bg-white">
+              {/* Main visualization with optimized image loading */}
+              <div className="absolute inset-0 overflow-hidden bg-gray-100">
+                <div className="h-full w-full relative">
                   <Image
                     src={`/images/process-${activeStep + 1}.jpg`}
                     alt={steps[activeStep].title}
                     fill
-                    className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={activeStep === 0}
+                    className="object-cover"
+                    style={{objectFit: 'cover'}}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-gray-900/20"></div>
-                </motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-gray-900/10"></div>
+                </div>
               </div>
 
-              {/* Feature highlight cards */}
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <motion.div
-                  key={`details-${activeStep}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <h3 className="text-2xl font-bold text-white mb-3">
+              {/* Feature highlight cards with improved legibility */}
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-6">
+                <div>
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">
                     {steps[activeStep].title}
                   </h3>
-                  <p className="text-white/90 mb-6 max-w-lg">
+                  <p className="text-white/95 mb-3 md:mb-4 max-w-lg text-xs md:text-sm">
                     {steps[activeStep].description}
                   </p>
                   
-                  {/* AI Processing Indicator */}
-                  <div className="inline-flex bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-lg ${steps[activeStep].iconBg} flex items-center justify-center`}>
-                        {React.createElement(steps[activeStep].icon, { className: "w-5 h-5 text-white" })}
+                  {/* AI Processing Indicator with better visibility */}
+                  <div className="inline-flex bg-white/20 backdrop-blur-sm rounded-lg p-2 md:p-3 border border-white/30">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className={`w-8 h-8 md:w-9 md:h-9 rounded-lg ${steps[activeStep].iconBg} flex items-center justify-center`}>
+                        {React.createElement(steps[activeStep].icon, { className: "w-4 h-4 md:w-5 md:h-5 text-white" })}
                       </div>
                       <div>
-                        <div className="text-white font-medium">Intelligent Analysis</div>
-                        <div className="text-white/70 text-sm flex items-center">
-                          <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
+                        <div className="text-white font-medium text-xs md:text-sm">Intelligent Analysis</div>
+                        <div className="text-white/90 text-[10px] md:text-xs flex items-center">
+                          <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 mr-1 animate-pulse"></span>
                           Processing candidate data...
                         </div>
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
               
-              {/* Feature-specific floating card */}
-              <motion.div
-                key={`card-${activeStep}`}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-gray-100"
+              {/* Feature-specific floating card with better visibility */}
+              <div
+                className="absolute top-3 md:top-4 right-3 md:right-4 bg-white/95 backdrop-blur-sm rounded-md p-2 shadow-sm border border-gray-100"
               >
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full ${steps[activeStep].iconBg} flex items-center justify-center`}>
-                    {React.createElement(steps[activeStep].icon, { className: "w-5 h-5 text-white" })}
+                <div className="flex items-center gap-2">
+                  <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full ${steps[activeStep].iconBg} flex items-center justify-center`}>
+                    {React.createElement(steps[activeStep].icon, { className: "w-3 h-3 md:w-4 md:h-4 text-white" })}
                   </div>
                   <div>
-                    <div className="text-gray-800 font-semibold text-sm">
+                    <div className="text-gray-900 font-semibold text-[10px] md:text-xs">
                       Step {activeStep + 1} of 3
                     </div>
-                    <div className="w-24 h-1.5 bg-gray-200 rounded-full mt-1">
+                    <div className="w-16 md:w-20 h-1.5 bg-gray-200 rounded-full mt-0.5">
                       <div 
-                        className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600"
+                        className="h-full rounded-full bg-blue-600"
                         style={{ width: `${((activeStep + 1) / 3) * 100}%` }}
                       ></div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
         
-        {/* Metrics Section */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-        >
+        {/* Metrics Section with improved layout */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {metrics.map((metric, index) => (
-            <motion.div
+            <div
               key={index}
-              variants={itemVariants} 
-              className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all group hover:-translate-y-1"
+              className="bg-white rounded-lg p-3 md:p-4 shadow-sm border border-gray-100 hover:shadow transition-all"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="mb-4 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <metric.icon className="w-6 h-6 text-blue-600" />
+                <div className="mb-2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                  <metric.icon className="w-4 h-4 md:w-5 md:h-5 text-blue-800" />
                 </div>
-                <div className="text-3xl font-bold text-gray-800 mb-1 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                <div className="text-xl md:text-2xl font-bold text-blue-800 mb-1">
                   {metric.value}
                 </div>
-                <div className="text-sm text-gray-600 font-medium">
+                <div className="text-[10px] md:text-xs text-gray-800 font-medium">
                   {metric.label}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
-      
-      {/* Add some custom styles for the animations */}
-      <style jsx global>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        .hover\\:scale-102:hover {
-          transform: scale(1.02);
-        }
-      `}</style>
     </section>
   );
 };

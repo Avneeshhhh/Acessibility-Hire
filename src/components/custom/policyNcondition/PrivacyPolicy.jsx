@@ -63,14 +63,14 @@ const PrivacyPolicy = () => {
             {/* Introduction */}
             <div className="prose max-w-none text-gray-800">
               <p className="mb-8">
-                Thank you for choosing to be part of our community at Hiremod ("we", "us", or "our"). 
+                Thank you for choosing to be part of our community at Accessibility Hire ("we", "us", or "our"). 
                 We are committed to protecting your personal information and your right to privacy. If you have any 
                 questions or concerns about our notice, or our practices with regards to your personal information, 
-                please contact us at privacy@hiremod.io.
+                please contact us at privacy@accessibilityhire.io.
               </p>
               
               <p className="mb-8">
-                When you visit our website https://hiremod.io, and use our services, you trust us with your 
+                When you visit our website https://accessibilityhire.io, and use our services, you trust us with your 
                 personal information. We take your privacy very seriously. In this privacy notice, we seek to explain 
                 to you in the clearest way possible what information we collect, how we use it and what rights you 
                 have in relation to it.
@@ -132,10 +132,10 @@ const PrivacyPolicy = () => {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">13. HOW CAN YOU CONTACT US ABOUT THIS POLICY?</h2>
                 <p className="text-gray-800 mb-4">
                   If you have questions or comments about this policy, you may contact our Data Protection Officer (DPO) 
-                  by email at privacy@hiremod.io, or by post to:
+                  by email at privacy@accessibilityhire.io, or by post to:
                 </p>
                 <div className="mt-4 text-gray-800">
-                  <p>Hiremod, Inc</p>
+                  <p>Accessibility Hire, Inc</p>
                   <p>Data Protection Officer</p>
                   <p>123 Business Street</p>
                   <p>San Francisco, CA 94104</p>

@@ -18,7 +18,7 @@ module.exports = {
   	extend: {
   		fontFamily: {
   			sans: [
-  				'var(--font-inter)'
+  				'var(--font-rubik)'
   			],
   			display: [
   				'var(--font-space-grotesk)'

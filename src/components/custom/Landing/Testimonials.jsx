@@ -1,177 +1,137 @@
 "use client";
 import React from 'react';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { Star, Building } from 'lucide-react';
 
 const testimonials = [
   {
-    name: "Sarah Chen",
-    position: "HR Director",
-    company: "TechCorp Inc.",
-    image: "https://randomuser.me/api/portraits/women/1.jpg",
-    content: "Accessibility Hire has revolutionized our hiring process. We've reduced our time-to-hire by 75% while finding better-qualified candidates.",
-    rating: 5
-  },
-  {
-    name: "Michael Rodriguez",
-    position: "Talent Acquisition Lead",
-    company: "InnovateX",
-    image: "https://randomuser.me/api/portraits/men/2.jpg",
-    content: "The AI-powered screening is a game-changer. It's like having an expert recruiter working 24/7. Absolutely worth the investment.",
-    rating: 5
-  },
-  {
-    name: "Emily Thompson",
-    position: "Recruitment Manager",
-    company: "Global Solutions",
-    image: "https://randomuser.me/api/portraits/women/3.jpg",
-    content: "We've seen a significant improvement in candidate quality since using Accessibility Hire. The AI matching is incredibly accurate.",
-    rating: 5
-  },
-  {
-    name: "David Kim",
-    position: "Head of Talent",
-    company: "Future Tech",
-    image: "https://randomuser.me/api/portraits/men/4.jpg",
-    content: "The platform's AI capabilities have transformed how we evaluate candidates. Our hiring success rate has increased dramatically.",
-    rating: 5
-  },
-  {
-    name: "Lisa Anderson",
+    name: "Sarah Johnson",
     position: "HR Manager",
-    company: "Digital Dynamics",
-    image: "https://randomuser.me/api/portraits/women/5.jpg",
-    content: "Exceptional tool for modern recruitment. The AI insights have helped us make better hiring decisions consistently.",
-    rating: 5
-  },
-  // Duplicate testimonials for continuous scroll
-  {
-    name: "Sarah Chen",
-    position: "HR Director",
-    company: "TechCorp Inc.",
-    image: "https://randomuser.me/api/portraits/women/1.jpg",
-    content: "Accessibility Hire has revolutionized our hiring process. We've reduced our time-to-hire by 75% while finding better-qualified candidates.",
-    rating: 5
+    company: "TechFusion Inc.",
+    content: "Implementing Accessibility Hire has transformed our recruitment process. We've seen a 40% increase in qualified candidates with disabilities applying to our positions.",
+    image: "/images/testimonials/sarah.jpg",
+    rating: 5,
+    date: "June 15, 2023"
   },
   {
-    name: "Michael Rodriguez",
-    position: "Talent Acquisition Lead",
-    company: "InnovateX",
-    image: "https://randomuser.me/api/portraits/men/2.jpg",
-    content: "The AI-powered screening is a game-changer. It's like having an expert recruiter working 24/7. Absolutely worth the investment.",
-    rating: 5
+    name: "David Chen",
+    position: "Software Engineer",
+    company: "Innovate Solutions",
+    content: "I found my dream job through this platform. The personalized job matches and accessibility-focused employers made all the difference in my job search.",
+    image: "/images/testimonials/david.jpg",
+    rating: 5,
+    date: "July 28, 2023"
+  },
+  {
+    name: "Maria Rodriguez",
+    position: "Marketing Specialist",
+    company: "Global Media Group",
+    content: "As someone with ADHD, finding an inclusive employer was crucial. This platform connected me with companies that understand and accommodate diverse work styles.",
+    image: "/images/testimonials/maria.jpg",
+    rating: 4,
+    date: "August 4, 2023"
+  },
+  {
+    name: "James Wilson",
+    position: "Project Manager",
+    company: "BuildRight Construction",
+    content: "The resources and support provided by Accessibility Hire have been invaluable. Their team helped us implement inclusive hiring practices that benefit our entire organization.",
+    image: "/images/testimonials/james.jpg",
+    rating: 5,
+    date: "May 12, 2023"
+  },
+  {
+    name: "Aisha Patel",
+    position: "UX Designer",
+    company: "Creative Digital",
+    content: "The platform's focus on skills rather than limitations helped me showcase my abilities. I'm now working at a company that values my unique perspective.",
+    image: "/images/testimonials/aisha.jpg",
+    rating: 5,
+    date: "September 3, 2023"
+  },
+  {
+    name: "Robert Thompson",
+    position: "Director of Diversity & Inclusion",
+    company: "Enterprise Solutions",
+    content: "The data and insights provided by Accessibility Hire have helped us measure and improve our diversity hiring initiatives with meaningful metrics.",
+    image: "/images/testimonials/robert.jpg",
+    rating: 4,
+    date: "July 5, 2023"
   }
 ];
 
-const TestimonialCard = ({ testimonial, index }) => {
+const TestimonialCard = ({ testimonial }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative group min-w-[380px] max-w-[380px]"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl"
-           style={{ 
-             background: `linear-gradient(to bottom right, 
-               ${index % 3 === 0 ? 'from-blue-500/20 to-violet-500/20' : 
-                 index % 3 === 1 ? 'from-violet-500/20 to-purple-500/20' : 
-                 'from-purple-500/20 to-blue-500/20'})` 
-           }}
-      />
-      <div className="relative p-6 bg-white/60 backdrop-blur-sm border border-gray-100 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-        {/* Rating Stars */}
-        <div className="flex mb-4">
-          {[...Array(testimonial.rating)].map((_, i) => (
-            <span key={i} className="text-yellow-400">★</span>
-          ))}
-        </div>
-
-        {/* Testimonial Content */}
-        <p className="text-gray-700 mb-6 text-base leading-relaxed break-words whitespace-normal">
-          "{testimonial.content}"
-        </p>
-
-        {/* Author Info */}
-        <div className="flex items-center gap-4">
-          <img 
-            src={testimonial.image} 
-            alt={testimonial.name}
-            className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
-          />
+    <div className="bg-white rounded-xl p-7 shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex gap-3 items-center">
+          <div className="relative w-14 h-14 overflow-hidden rounded-full border-2 border-blue-100">
+            <Image
+              src={testimonial.image}
+              alt={testimonial.name}
+              fill
+              sizes="56px"
+              className="object-cover"
+            />
+          </div>
           <div>
-            <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+            <h3 className="font-bold text-lg text-gray-900">{testimonial.name}</h3>
             <p className="text-sm text-gray-600">{testimonial.position}</p>
-            <p className="text-sm text-blue-600">{testimonial.company}</p>
           </div>
         </div>
+        <div className="flex">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-200'}`} fill={i < testimonial.rating ? "currentColor" : "none"} />
+          ))}
+        </div>
       </div>
-    </motion.div>
+      
+      <blockquote className="text-base md:text-lg text-gray-700 mb-6 flex-grow">
+        "{testimonial.content}"
+      </blockquote>
+      
+      <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+        <p className="text-sm text-gray-500">{testimonial.date}</p>
+        {testimonial.company && (
+          <div className="flex items-center gap-1.5">
+            <Building className="w-4 h-4 text-blue-600" />
+            <span className="text-sm font-medium text-gray-700">{testimonial.company}</span>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
 const Testimonials = () => {
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f1f1_1px,transparent_1px),linear-gradient(to_bottom,#f1f1f1_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"></div>
+    <section className="py-20 md:py-28 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/10 to-white">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
       </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="max-w-2xl mx-auto mb-12">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="w-20 h-1 bg-gradient-to-r from-blue-600 to-violet-600 mb-4 mx-auto"
-          />
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-center mb-4"
-          >
-            <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent">
-              What Our Clients Say
-            </span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-gray-600 text-center"
-          >
-            Join hundreds of companies that trust Accessibility Hire to transform their recruitment process
-          </motion.p>
+      
+      <div className="container mx-auto px-5 relative z-10">
+        <div className="text-center max-w-4xl mx-auto mb-14 md:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 text-sm font-bold text-blue-700 rounded-full border border-blue-100 bg-white">
+            <Star className="w-4 h-4 text-blue-500" />
+            <span>TESTIMONIALS</span>
+          </div>
+          
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-gray-900">
+            Trusted by <span className="text-blue-700">Professionals</span> Like You
+          </h2>
+          
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+            Discover what others are saying about their experiences with our platform and how it has transformed their careers.
+          </p>
         </div>
-
-        {/* Testimonials Horizontal Scroll */}
-        <div className="relative max-w-7xl mx-auto overflow-hidden">
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-white to-transparent z-10"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-white to-transparent z-10"></div>
-
-          {/* Scrolling Container */}
-          <motion.div
-            initial={{ x: 0 }}
-            animate={{ x: "-50%" }}
-            transition={{
-              duration: 40,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            className="flex gap-8 whitespace-normal"
-          >
+        
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {testimonials.map((testimonial, index) => (
-              <TestimonialCard 
-                key={index} 
-                testimonial={testimonial} 
-                index={index}
-              />
+              <TestimonialCard key={index} testimonial={testimonial} />
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -179,3 +139,4 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
+

@@ -1,9 +1,9 @@
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Rubik, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const rubik = Rubik({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-rubik',
   display: 'swap',
   preload: true
 });
@@ -16,12 +16,12 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://hiremod.io'),
+  metadataBase: new URL('https://accessibilityhire.io'),
   title: {
-    default: "Hiremod - AI-Powered Recruitment & Applicant Tracking System",
-    template: "%s | Hiremod"
+    default: "Accessibility Hire",
+    template: "%s | Accessibility Hire"
   },
-  description: "Hiremod is an intelligent talent platform that streamlines recruitment with AI-powered candidate matching, automated screening, and smart analytics. Find top talent 3x faster.",
+  description: "Accessibility Hire is an intelligent talent platform that streamlines recruitment with AI-powered candidate matching, automated screening, and smart analytics. Find top talent 3x faster.",
   keywords: [
     "AI recruitment software",
     "applicant tracking system",
@@ -34,25 +34,25 @@ export const metadata = {
     "HR technology",
     "intelligent recruiting"
   ],
-  authors: [{ name: "Hiremod" }],
-  creator: "Hiremod",
-  publisher: "Hiremod",
+  authors: [{ name: "Accessibility Hire" }],
+  creator: "Accessibility Hire",
+  publisher: "Accessibility Hire",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: "Hiremod - Hiremod - Intelligent Talent Platform",
+    title: "Accessibility Hire - Accessibility Hire - Intelligent Talent Platform",
     description: "Transform your hiring process with AI-powered candidate matching, automated screening, and intelligent analytics. Find better candidates 3x faster.",
-    url: 'https://hiremod.io',
-    siteName: 'Hiremod',
+    url: 'https://accessibilityhire.io',
+    siteName: 'Accessibility Hire',
     images: [
       {
-        url: 'https://hiremod.io/images/og-image.jpg',
+        url: 'https://accessibilityhire.io/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Hiremod AI Recruitment Platform',
+        alt: 'Accessibility Hire AI Recruitment Platform',
       },
     ],
     locale: 'en_US',
@@ -60,10 +60,10 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Hiremod - Hiremod - Intelligent Talent Platform",
+    title: "Accessibility Hire - Accessibility Hire - Intelligent Talent Platform",
     description: "Revolutionize your hiring with AI-powered candidate matching and automated screening. Find top talent 3x faster.",
-    images: ['https://hiremod.io/images/twitter-image.jpg'],
-    creator: '@hiremod',
+    images: ['https://accessibilityhire.io/images/twitter-image.jpg'],
+    creator: '@accessibilityhire',
   },
   robots: {
     index: true,
@@ -83,8 +83,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className={`min-h-screen font-sans ${inter.className}`}>
+    <html lang="en" className={`${rubik.variable} ${spaceGrotesk.variable}`}>
+      <body className={`min-h-screen font-sans ${rubik.className}`}>
         {children}
       </body>
     </html>
