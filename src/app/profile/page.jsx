@@ -8,6 +8,7 @@ import NavBar from '@/components/custom/Navigation/NavBar';
 import Footer from '@/components/custom/Navigation/Footer';
 import { User, Mail, LogOut, Camera, Calendar, Edit, Check, X, AtSign, Briefcase } from 'lucide-react';
 import Image from 'next/image';
+import ProfileTabs from '@/components/custom/Profile/ProfileTabs';
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -530,6 +531,9 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
+          
+          {/* Replace ProfileJobBoard with ProfileTabs */}
+          <ProfileTabs />
         </main>
         
         <Footer />
