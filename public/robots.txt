@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block access to admin or private areas if needed
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemaps
+Sitemap: https://hiremod.io/sitemap.xml 
