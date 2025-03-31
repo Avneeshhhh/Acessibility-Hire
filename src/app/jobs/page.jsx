@@ -3,10 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from "@/components/custom/Navigation/NavBar";
 import Footer from "@/components/custom/Navigation/Footer";
-import ClientJobBoardSection from "@/components/custom/Landing/ClientJobBoardSection";
 import ChatBotWrapper from "@/components/custom/Chatbot/ChatBotWrapper";
 import { motion } from 'framer-motion';
-import { Briefcase, Search, MapPin, Filter, ArrowRight, DollarSign, Calendar, Building2, X } from 'lucide-react';
+import { Briefcase, Search, MapPin, Filter, DollarSign, Clock, Building2, X } from 'lucide-react';
 import { getAllJobPosts } from '@/lib/firebase';
 import Link from 'next/link';
 
@@ -91,204 +90,267 @@ export default function JobsPage() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <NavBar />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 pt-20 pb-24 px-4 sm:px-6 lg:px-8 text-white">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6">
-            Find Your Dream Job
-          </h1>
-          <p className="text-lg text-indigo-100 mb-8 max-w-2xl">
-            Browse through our curated list of job opportunities for people with accessibility needs
-          </p>
-          
-          {/* Search Bar */}
-          <div className="relative max-w-2xl">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-gray-400" />
-            </div>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-12 py-3 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white text-gray-900 shadow-md"
-              placeholder="Search jobs by title, description, or company..."
-            />
-            {searchTerm && (
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+      <section className="bg-gradient-to-r from-gray-800 to-black pt-16 pb-16 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col items-center justify-center text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-white mt-6 mb-4">
+              Find Your Dream Job
+            </h1>
+            <p className="text-gray-200 text-xl mb-8 max-w-2xl">
+              Browse through opportunities tailored for people with accessibility needs
+            </p>
+            
+            {/* Search Section */}
+            <div className="relative w-full max-w-2xl">
+              <div className="flex items-center">
+                {/* Search Bar */}
+                <div className="relative flex-grow">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="block w-full pl-12 pr-12 py-3 border-0 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 bg-white shadow-md text-gray-900"
+                    placeholder="Search job title, company, or skills..."
+                  />
+                  {searchTerm && (
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                      <button 
+                        onClick={() => setSearchTerm('')}
+                        className="text-gray-400 hover:text-gray-600 transition-colors"
+                      >
+                        <X className="h-5 w-5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Filter Toggle */}
                 <button 
-                  onClick={() => setSearchTerm('')}
-                  className="text-gray-400 hover:text-gray-600"
+                  onClick={() => setFilters(prev => ({ ...prev, showFilters: !prev.showFilters }))}
+                  className="flex items-center justify-center text-sm font-medium text-white bg-gray-900 ml-2 px-4 py-3 rounded-full hover:bg-black transition-colors"
                 >
-                  <X className="h-5 w-5" />
+                  <Filter className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline">
+                    {filters.showFilters ? 'Hide' : 'Filters'}
+                  </span>
+                </button>
+              </div>
+              
+              {/* Filter Options */}
+              {filters.showFilters && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="mt-4 px-4 sm:px-0 bg-white/10 backdrop-blur-sm p-4 rounded-lg"
+                >
+                  <div className="grid grid-cols-1 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-1">
+                        Location
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <MapPin className="h-4 w-4 text-gray-300" />
+                        </div>
+                        <input
+                          type="text"
+                          value={filters.location}
+                          onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
+                          className="block w-full pl-10 py-2 border-0 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 bg-white/10 text-white placeholder-gray-300 text-sm"
+                          placeholder="Remote, City, State..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Content Section */}
+      <div className="bg-gray-50 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header with job count */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2 sm:mb-0">
+              {!isLoading && !error ? filteredJobs.length : "0"} Jobs Available
+            </h2>
+            
+            {hasActiveFilters && (
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <span>Filters applied</span>
+                <button
+                  onClick={clearFilters}
+                  className="underline text-gray-900 hover:text-gray-600"
+                >
+                  Clear all
                 </button>
               </div>
             )}
           </div>
           
-          {/* Advanced Filters */}
-          <div className="mt-4 flex">
-            <button 
-              onClick={() => setFilters(prev => ({ ...prev, showFilters: !prev.showFilters }))}
-              className="flex items-center text-sm font-medium text-white bg-indigo-700/40 px-3 py-1.5 rounded-lg hover:bg-indigo-700/60"
-            >
-              <Filter className="h-4 w-4 mr-1.5" />
-              {filters.showFilters ? 'Hide Filters' : 'Show Filters'}
-            </button>
-            
-            {hasActiveFilters && (
-              <button 
-                onClick={clearFilters}
-                className="flex items-center text-sm font-medium text-white bg-indigo-700/40 px-3 py-1.5 rounded-lg hover:bg-indigo-700/60 ml-2"
-              >
-                <X className="h-4 w-4 mr-1.5" />
-                Clear Filters
-              </button>
-            )}
-          </div>
-          
-          {/* Filter Options */}
-          {filters.showFilters && (
-            <div className="mt-4 p-4 bg-white/10 backdrop-blur-sm rounded-lg inline-flex flex-wrap gap-4">
-              <div>
-                <label className="block text-sm font-medium text-indigo-100 mb-1">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  value={filters.location}
-                  onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
-                  className="block w-full px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white/90 text-gray-900 text-sm"
-                  placeholder="Remote, City, State..."
-                />
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-50 text-red-700 p-4 rounded-lg mb-6 border-l-4 border-red-500">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <X className="h-5 w-5 text-red-500" />
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium">{error}</p>
+                </div>
               </div>
             </div>
           )}
-        </div>
-      </section>
-      
-      {/* Content Section */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header with job count */}
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">
-            {!isLoading && !error && `${filteredJobs.length} ${filteredJobs.length === 1 ? 'Job' : 'Jobs'} Available`}
-          </h2>
-        </div>
-        
-        {/* Error Message */}
-        {error && (
-          <div className="bg-red-50 text-red-700 p-4 rounded-lg mb-6 border border-red-100">
-            {error}
-          </div>
-        )}
-        
-        {/* Loading State */}
-        {isLoading ? (
-          <div className="space-y-6">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                <div className="animate-pulse">
-                  <div className="h-7 bg-gray-200 rounded w-3/4 mb-4"></div>
-                  <div className="flex space-x-4 mb-4">
-                    <div className="h-4 bg-gray-200 rounded w-24"></div>
-                    <div className="h-4 bg-gray-200 rounded w-32"></div>
-                  </div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : filteredJobs.length > 0 ? (
-          <div className="space-y-6">
-            {filteredJobs.map(job => (
-              <Link 
-                href={`/job/${job.id}`} 
-                key={job.id}
-                className="block bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-              >
-                <div className="p-6">
-                  <div className="flex justify-between items-start">
+          
+          {/* Loading State */}
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-white rounded-lg border border-gray-200 p-5 animate-pulse">
+                  <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        {job.title}
-                      </h3>
-                      
-                      {job.organization && (
-                        <div className="flex items-center text-gray-600 mb-4">
-                          <Building2 className="h-4 w-4 mr-1.5 text-gray-500" />
-                          <span>{job.organization.org_name}</span>
-                        </div>
-                      )}
+                      <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
+                      <div className="h-6 bg-gray-200 rounded w-48 mb-2"></div>
                     </div>
+                    <div className="h-6 w-20 bg-amber-100 rounded-md"></div>
                   </div>
-                  
-                  <div className="flex flex-wrap gap-3 mb-4">
-                    {job.location && (
-                      <div className="flex items-center text-sm text-gray-600">
-                        <MapPin className="h-4 w-4 mr-1 text-indigo-500" />
-                        {job.location}
-                      </div>
-                    )}
-                    
-                    {job.salary && (
-                      <div className="flex items-center text-sm text-gray-600">
-                        <DollarSign className="h-4 w-4 mr-1 text-green-500" />
-                        {job.salary}
-                      </div>
-                    )}
-                    
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Calendar className="h-4 w-4 mr-1 text-gray-500" />
-                      {job.created_at instanceof Date
-                        ? job.created_at.toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
-                          })
-                        : 'Recently posted'}
-                    </div>
+                  <div className="h-4 bg-gray-200 rounded w-40 mb-4"></div>
+                  <div className="flex items-center space-x-4 mb-3">
+                    <div className="h-4 w-28 bg-gray-200 rounded"></div>
+                    <div className="h-4 w-20 bg-gray-200 rounded"></div>
                   </div>
-                  
-                  <div className="text-gray-700 line-clamp-3 mb-4">
-                    {job.desc}
+                  <div className="flex items-center space-x-4 mb-3">
+                    <div className="h-4 w-24 bg-gray-200 rounded"></div>
+                    <div className="h-4 w-24 bg-gray-200 rounded"></div>
                   </div>
-                  
-                  <div className="flex justify-end">
-                    <span className="inline-flex items-center px-3 py-1.5 rounded-md bg-indigo-50 text-indigo-700 text-sm font-medium">
-                      <Briefcase className="h-3.5 w-3.5 mr-1.5" />
-                      View Details
-                    </span>
+                  <div className="flex space-x-2 mb-4">
+                    <div className="h-7 w-16 bg-gray-100 rounded-full"></div>
+                    <div className="h-7 w-24 bg-gray-100 rounded-full"></div>
+                    <div className="h-7 w-16 bg-gray-100 rounded-full"></div>
                   </div>
+                  <div className="h-9 bg-gray-200 rounded w-full"></div>
                 </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12 border border-dashed border-gray-300 rounded-xl bg-gray-50">
-            <Briefcase className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-700 mb-2">No Jobs Found</h3>
-            <p className="text-gray-500 mb-6 max-w-md mx-auto">
-              {hasActiveFilters 
-                ? "We couldn't find any jobs matching your search criteria. Try adjusting your filters."
-                : "There are no job listings available at the moment. Please check back later."}
-            </p>
-            {hasActiveFilters && (
-              <button
-                onClick={clearFilters}
-                className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md shadow-sm text-sm font-medium"
-              >
-                <X className="h-4 w-4 mr-1.5" />
-                Clear Filters
-              </button>
-            )}
-          </div>
-        )}
-      </section>
+              ))}
+            </div>
+          ) : filteredJobs.length > 0 ? (
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {filteredJobs.map((job, index) => (
+                <motion.div
+                  key={job.id}
+                  variants={itemVariants}
+                  className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <div>
+                      <div className="text-sm text-gray-700 mb-1">
+                        {job.organization?.org_name || 'Tech Solutio Inc.'}
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">
+                        {job.title || 'Senior Frontend Developer'}
+                      </h3>
+                    </div>
+                    {index % 3 === 0 && (
+                      <div className="bg-amber-500 text-white text-xs font-medium px-2.5 py-1 rounded">
+                        Featured
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="mb-3">
+                    <div className="flex items-center">
+                      <Building2 className="h-4 w-4 text-gray-500 mr-2" />
+                      <span className="text-sm text-gray-700">{job.organization?.org_name || 'Tech Solutions Inc.'}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex mb-1">
+                    <div className="flex items-center mr-6">
+                      <MapPin className="h-4 w-4 text-gray-500 mr-2" />
+                      <span className="text-sm text-gray-700">{job.location || 'New York, USA'}</span>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <DollarSign className="h-4 w-4 text-gray-500 mr-2" />
+                      <span className="text-sm text-gray-700">{job.salary || '$120K/yr'}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center mb-4">
+                    <Briefcase className="h-4 w-4 text-gray-500 mr-2" />
+                    <span className="text-sm text-gray-700">{job.job_type || 'Full-time'}</span>
+                    
+                    {job.posted && (
+                      <div className="flex items-center ml-6">
+                        <Clock className="h-4 w-4 text-gray-500 mr-2" />
+                        <span className="text-sm text-gray-700">{`${Math.floor(Math.random() * 7) + 1}d ago`}</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {['React', 'TypeScript', 'UI/UX'].slice(0, 3).map((skill, i) => (
+                      <span 
+                        key={i}
+                        className="bg-gray-100 text-gray-700 text-xs px-2.5 py-1 rounded-full"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <Link 
+                    href={`/job/${job.id}`}
+                    className="block w-full bg-gray-900 hover:bg-black text-white text-center font-medium py-2 rounded transition-colors"
+                  >
+                    View Details
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center py-16 bg-white rounded-lg border border-gray-200 shadow-sm"
+            >
+              <Briefcase className="h-14 w-14 text-gray-300 mx-auto mb-5" />
+              <h3 className="text-xl font-medium text-gray-700 mb-3">No Jobs Found</h3>
+              <p className="text-gray-500 mb-8 max-w-md mx-auto">
+                {hasActiveFilters 
+                  ? "We couldn't find any jobs matching your search criteria. Try adjusting your filters."
+                  : "There are no job listings available at the moment. Please check back later."}
+              </p>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="inline-flex items-center px-6 py-3 bg-gray-900 hover:bg-black text-white rounded-lg shadow-sm text-sm font-medium transition-colors"
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  Clear Filters
+                </button>
+              )}
+            </motion.div>
+          )}
+        </div>
+      </div>
       
       <Footer />
       <ChatBotWrapper />

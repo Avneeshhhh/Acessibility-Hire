@@ -24,7 +24,7 @@ const jobSeekerFeatures = [
     icon: Building,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/image2.jpeg",
+    image: "/images/img5.jpg",
     benefits: ["Direct messaging with hiring managers", "Company profiles highlighting inclusion initiatives", "Networking events and webinars"]
   },
   {
@@ -34,7 +34,7 @@ const jobSeekerFeatures = [
     icon: Award,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/image3.jpeg",
+    image: "/images/img6.jpeg",
     benefits: ["Resume building tailored for accessibility", "Interview preparation guides", "Career development webinars"]
   }
 ];
@@ -47,7 +47,7 @@ const employerFeatures = [
     icon: Users,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/talent.jpeg"
+    image: "/images/img8.jpeg"
   },
   {
     id: 'commitment-to-diversity-inclusion',
@@ -56,7 +56,7 @@ const employerFeatures = [
     icon: Award,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/commitment.jpeg"
+    image: "/images/img9.jpeg"
   },
   {
     id: 'simple-hiring-process',
@@ -65,7 +65,7 @@ const employerFeatures = [
     icon: Zap,
     color: "text-[#4169E1]",
     bgColor: "bg-blue-100",
-    image: "/images/hiringprocess.jpeg"
+    image: "/images/img7.jpeg"
   }
 ];
 

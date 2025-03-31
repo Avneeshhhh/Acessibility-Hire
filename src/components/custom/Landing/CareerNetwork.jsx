@@ -17,7 +17,7 @@ const CareerNetwork = () => {
       description: "Get the latest jobs sent directly to your inbox with Accessibility Hire Job Alerts.",
       link: "/jobs",
       buttonText: "Set Up Alerts",
-      image: "/images/jobportal.jpeg"
+      image: "/images/img4.jpg"
     },
     {
       icon: Building,
@@ -25,7 +25,7 @@ const CareerNetwork = () => {
       description: "Search our company directory for a list of potential employers by location and sector.",
       link: "/employers",
       buttonText: "Search Companies",
-      image: "/images/jobsearch.jpeg"
+      image: "/images/img3.jpeg"
     },
     {
       icon: Briefcase,
@@ -33,7 +33,7 @@ const CareerNetwork = () => {
       description: "Get career advice including interview techniques, resume tips, and job search advice.",
       link: "/resources",
       buttonText: "Career Advice",
-      image: "/images/carrierAdvice.jpeg"
+      image: "/images/img2.jpeg"
     },
     
   ];

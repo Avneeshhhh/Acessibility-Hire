@@ -221,7 +221,7 @@ const HeroSection = () => {
               >
                 <div className="relative w-full max-w-xl mx-auto">
                   <Image 
-                    src="/images/herosection.jpg" 
+                    src="/images/img2.jpeg" 
                     alt="Accessibility Hire - Professional Connection"
                     width={700} 
                     height={600}

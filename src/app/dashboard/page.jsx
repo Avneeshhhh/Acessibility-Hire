@@ -314,6 +314,7 @@ const DashboardPage = () => {
                         <p className="text-sm text-gray-900">{activity.message}</p>
                         <p className="text-xs text-gray-500">{activity.time}</p>
                       </div>
+
                     </div>
                   ))}
                 </div>
