@@ -205,20 +205,9 @@ const NavBar = () => {
                       aria-label="Profile"
                     >
                       <div className="h-10 w-10 rounded-full overflow-hidden relative border-2 border-gray-800 hover:border-black transition-colors shadow-sm">
-                        {user.photoURL ? (
-                          <Image 
-                            src={user.photoURL}
-                            alt={user.displayName || "Profile"}
-                            fill
-                            style={{ objectFit: 'cover' }}
-                            sizes="40px"
-                            priority
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                            <User className="w-5 h-5 text-gray-800" aria-hidden="true" />
-                          </div>
-                        )}
+                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                          <User className="w-5 h-5 text-gray-800" aria-hidden="true" />
+                        </div>
                       </div>
                     </motion.div>
                   </div>
