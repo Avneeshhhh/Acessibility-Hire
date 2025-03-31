@@ -123,9 +123,6 @@ const Footer = () => {
               Subscribe to our newsletter for the latest updates and job listings.
             </p>
             <div className="relative mb-6">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <Mail className="w-4 h-4 text-gray-500" />
-              </div>
               <input 
                 type="email" 
                 placeholder="Enter your email" 
