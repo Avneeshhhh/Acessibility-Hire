@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Facebook, Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Instagram, Mail, ArrowRight } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,7 +17,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-4">
             <span className="inline-block">
-              <span className="text-xl font-bold text-blue-800">
+              <span className="text-xl font-bold text-grey-800">
                 Accessibility Hire
               </span>
             </span>
@@ -103,25 +103,23 @@ const Footer = () => {
             <p className="text-gray-700 mb-3 text-sm">
               Subscribe to our newsletter for the latest updates and job listings.
             </p>
-            <form className="mb-5">
-              <label htmlFor="email-input" className="sr-only">Email address</label>
-              <div className="relative mb-2">
-                <input
-                  id="email-input"
-                  type="email"
-                  placeholder="Your email address"
-                  className="w-full px-3 py-2.5 pl-9 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-800 bg-white shadow-sm text-sm"
-                  aria-required="true"
-                />
-                <Mail className="w-4 h-4 text-gray-500 absolute left-3 top-2.5" aria-hidden="true" />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <Mail className="w-4 h-4 text-gray-500" />
               </div>
-              <button
-                type="submit"
-                className="w-full px-3 py-2.5 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors font-medium shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="w-full px-3 py-2.5 pl-9 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 text-gray-800 bg-white shadow-sm text-sm"
+              />
+              <button 
+                type="submit" 
+                className="mt-3 w-full py-2.5 px-5 bg-gray-900 hover:bg-black text-white text-sm font-medium rounded-lg flex items-center justify-center shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
               >
-                Subscribe
+                Subscribe 
+                <ArrowRight className="ml-2 w-4 h-4" />
               </button>
-            </form>
+            </div>
             
             <h3 className="text-gray-900 font-semibold mb-3 text-base">Company</h3>
             <ul className="space-y-2">

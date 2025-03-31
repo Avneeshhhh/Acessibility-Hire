@@ -60,7 +60,7 @@ const HeroSection = () => {
       {/* Modern Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Base color */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50/80 to-blue-50/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-gray-100/60"></div>
         
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-70" aria-hidden="true"></div>
@@ -70,7 +70,7 @@ const HeroSection = () => {
           variants={glowVariants}
           initial="initial"
           animate="animate"
-          className="absolute top-20 right-1/3 w-[600px] h-[600px] rounded-full bg-blue-300/20 blur-[150px]" 
+          className="absolute top-20 right-1/3 w-[600px] h-[600px] rounded-full bg-gray-200/20 blur-[150px]" 
           aria-hidden="true"
         ></motion.div>
         <motion.div 
@@ -88,7 +88,7 @@ const HeroSection = () => {
           }}
           initial="initial"
           animate="animate"
-          className="absolute -bottom-10 left-1/4 w-[500px] h-[500px] rounded-full bg-purple-200/20 blur-[120px]" 
+          className="absolute -bottom-10 left-1/4 w-[500px] h-[500px] rounded-full bg-gray-300/20 blur-[120px]" 
           aria-hidden="true"
         ></motion.div>
         <motion.div 
@@ -106,14 +106,14 @@ const HeroSection = () => {
           }}
           initial="initial"
           animate="animate"
-          className="absolute top-[40%] left-1/3 w-[350px] h-[350px] rounded-full bg-teal-200/20 blur-[100px]" 
+          className="absolute top-[40%] left-1/3 w-[350px] h-[350px] rounded-full bg-gray-100/20 blur-[100px]" 
           aria-hidden="true"
         ></motion.div>
         
         {/* Decorative elements */}
-        <div className="absolute top-[10%] right-[10%] w-20 h-20 rounded-xl border border-blue-200/80 bg-white/30 backdrop-blur-md rotate-12 opacity-60" aria-hidden="true"></div>
-        <div className="absolute bottom-[15%] left-[12%] w-16 h-16 rounded-xl border border-purple-200/80 bg-white/30 backdrop-blur-md -rotate-12 opacity-60" aria-hidden="true"></div>
-        <div className="absolute top-[25%] left-[15%] w-10 h-10 rounded-lg border border-teal-200/80 bg-white/20 backdrop-blur-md rotate-45 opacity-40" aria-hidden="true"></div>
+        <div className="absolute top-[10%] right-[10%] w-20 h-20 rounded-xl border border-gray-200/80 bg-white/30 backdrop-blur-md rotate-12 opacity-60" aria-hidden="true"></div>
+        <div className="absolute bottom-[15%] left-[12%] w-16 h-16 rounded-xl border border-gray-200/80 bg-white/30 backdrop-blur-md -rotate-12 opacity-60" aria-hidden="true"></div>
+        <div className="absolute top-[25%] left-[15%] w-10 h-10 rounded-lg border border-gray-200/80 bg-white/20 backdrop-blur-md rotate-45 opacity-40" aria-hidden="true"></div>
       </div>
       
       {/* Main content container */}
@@ -136,10 +136,10 @@ const HeroSection = () => {
                 variants={itemVariants}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-7 text-gray-900"
               >
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900">Your Bridge</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-800 via-gray-900 to-black">Your Bridge</span>
                 <span className="block mt-2">to <span className="relative inline-block">
                   <span className="relative z-10">Success</span>
-                  <svg className="absolute -bottom-2 -left-2 w-full h-3 text-blue-400/80" style={{ width: "calc(100% + 16px)" }} viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
+                  <svg className="absolute -bottom-2 -left-2 w-full h-3 text-gray-400/80" style={{ width: "calc(100% + 16px)" }} viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
                     <path d="M0,0 Q50,12 100,0" stroke="currentColor" strokeWidth="8" fill="none" />
                   </svg>
                 </span></span>
@@ -160,7 +160,7 @@ const HeroSection = () => {
               >
                 Explore an extensive selection of job opportunities specifically 
                 designed for professionals with disabilities. Become a member of 
-                <span className="text-blue-700 font-semibold"> Accessibility Hire </span>
+                <span className="text-gray-900 font-semibold"> Accessibility Hire </span>
                 today and advance your career to the next level.
               </motion.p>
               
@@ -171,11 +171,11 @@ const HeroSection = () => {
               >
                 <Link href="/jobs">
                   <motion.button 
-                    whileHover={{ scale: 1.03, boxShadow: "0 10px 30px -10px rgba(59, 130, 246, 0.5)" }}
+                    whileHover={{ scale: 1.03, boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.2)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="group relative overflow-hidden h-14 px-8 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-base font-medium rounded-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-300 w-full sm:w-auto"
+                    className="group relative overflow-hidden h-14 px-8 bg-gradient-to-r from-gray-800 to-black text-white text-base font-medium rounded-lg shadow-lg shadow-gray-500/20 hover:shadow-gray-500/40 transition-all duration-300 w-full sm:w-auto"
                   >
-                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-opacity opacity-0 group-hover:opacity-100 duration-300"></span>
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-gray-700 to-gray-900 transition-opacity opacity-0 group-hover:opacity-100 duration-300"></span>
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       Find Your Job
                       <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true" />
@@ -187,16 +187,16 @@ const HeroSection = () => {
                   <motion.button 
                     whileHover={{ scale: 1.03, boxShadow: "0 10px 25px -10px rgba(0, 0, 0, 0.1)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="h-14 px-8 border-2 border-blue-600/80 bg-white/80 backdrop-blur-sm text-blue-700 hover:bg-blue-50/80 text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
+                    className="h-14 px-8 border-2 border-gray-800/80 bg-white/80 backdrop-blur-sm text-gray-900 hover:bg-gray-50/80 text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
                   >
                     <Briefcase className="w-5 h-5" aria-hidden="true" />
                     For Employers
                   </motion.button>
                 </Link>
               </motion.div>
-              
+
               {/* Trust indicators strip */}
-              <motion.div
+              {/* <motion.div
                 variants={itemVariants}
                 className="flex flex-wrap items-center gap-3 md:gap-6 text-sm text-gray-500"
               >
@@ -210,97 +210,25 @@ const HeroSection = () => {
                   <div className="w-7 h-7 bg-gray-200 rounded-full"></div>
                   <span>200+ Employers</span>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </div>
             
             {/* Right content area */}
             <div className="md:col-span-5 lg:col-span-6 xl:col-span-6">
-              {/* Modern glass card */}
               <motion.div
                 variants={itemVariants}
-                className="bg-white/60 backdrop-blur-lg mt-12 rounded-2xl p-6 md:p-8 border border-white/80 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.15)] w-full max-w-xl mx-auto"
+                className="relative w-full h-full flex items-center justify-center"
               >
-                <div className="relative">
-                  {/* Card header with accent */}
-                  <div className="absolute -top-10 -left-3 md:-left-4 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-lg shadow-blue-500/20 text-white font-medium text-sm">
-                    Why Choose Us?
-                  </div>
-                  
-                  {/* Trust Indicators */}
-                  <div className="space-y-5 mb-7 mt-3 pt-2">
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 mt-0.5 flex items-center justify-center w-8 h-8 bg-green-50 rounded-full shadow-sm border border-green-100" aria-hidden="true">
-                        <Check className="w-4 h-4 text-green-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-0.5 text-sm">Verified Employers</h4>
-                        <p className="text-xs text-gray-600">All employers are committed to diversity and inclusion</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 mt-0.5 flex items-center justify-center w-8 h-8 bg-green-50 rounded-full shadow-sm border border-green-100" aria-hidden="true">
-                        <Check className="w-4 h-4 text-green-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-0.5 text-sm">Tailored Experience</h4>
-                        <p className="text-xs text-gray-600">Inclusive environment with accessibility-focused opportunities</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 mt-0.5 flex items-center justify-center w-8 h-8 bg-green-50 rounded-full shadow-sm border border-green-100" aria-hidden="true">
-                        <Check className="w-4 h-4 text-green-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-0.5 text-sm">Smart Matching</h4>
-                        <p className="text-xs text-gray-600">Personalized recommendations based on skills and preferences</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Stats cards */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="relative overflow-hidden p-4 rounded-xl">
-                      {/* Gradient background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-blue-500/15 backdrop-blur-sm border border-blue-200/60 rounded-xl"></div>
-                      
-                      <div className="relative z-10 flex flex-col items-center text-center gap-2">
-                        <div className="h-10 w-10 flex items-center justify-center bg-blue-100 rounded-full border border-blue-200 shadow-sm">
-                          <Users className="w-5 h-5 text-blue-700" aria-hidden="true" />
-                        </div>
-                        <div>
-                          <div className="text-blue-900 font-semibold text-lg mb-0.5">5,000+</div>
-                          <div className="text-blue-800 text-xs">Professionals</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="relative overflow-hidden p-4 rounded-xl">
-                      {/* Gradient background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-purple-500/5 to-purple-500/15 backdrop-blur-sm border border-purple-200/60 rounded-xl"></div>
-                      
-                      <div className="relative z-10 flex flex-col items-center text-center gap-2">
-                        <div className="h-10 w-10 flex items-center justify-center bg-purple-100 rounded-full border border-purple-200 shadow-sm">
-                          <Building className="w-5 h-5 text-purple-700" aria-hidden="true" />
-                        </div>
-                        <div>
-                          <div className="text-purple-900 font-semibold text-lg mb-0.5">200+</div>
-                          <div className="text-purple-800 text-xs">Employers</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* CTA button */}
-                  <Link href="/register" className="block mt-6">
-                    <motion.button 
-                      whileHover={{ scale: 1.02, boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.2)" }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full h-10 px-5 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white text-sm font-medium rounded-lg shadow-md transition-all duration-300 flex items-center justify-center gap-2"
-                    >
-                      Join Our Network
-                      <ChevronRight className="w-4 h-4" aria-hidden="true" />
-                    </motion.button>
-                  </Link>
+                <div className="relative w-full max-w-xl mx-auto">
+                  <Image 
+                    src="/images/herosection.jpg" 
+                    alt="Accessibility Hire - Professional Connection"
+                    width={700} 
+                    height={600}
+                    className="rounded-2xl shadow-2xl object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 rounded-2xl border border-white/20 shadow-lg"></div>
                 </div>
               </motion.div>
             </div>

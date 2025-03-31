@@ -106,7 +106,7 @@ const JobBoard = () => {
             <div className="relative">
               <label className="block text-sm font-medium text-gray-500 mb-1">Type of job</label>
               <select 
-                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white"
                 value={selectedJobType}
                 onChange={(e) => setSelectedJobType(e.target.value)}
               >
@@ -122,7 +122,7 @@ const JobBoard = () => {
             <div className="relative">
               <label className="block text-sm font-medium text-gray-500 mb-1">City</label>
               <select 
-                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white"
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
               >
@@ -138,7 +138,7 @@ const JobBoard = () => {
             <div className="relative">
               <label className="block text-sm font-medium text-gray-500 mb-1">Experience</label>
               <select 
-                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white"
                 value={selectedExperience}
                 onChange={(e) => setSelectedExperience(e.target.value)}
               >
@@ -153,7 +153,7 @@ const JobBoard = () => {
             <div className="relative">
               <label className="block text-sm font-medium text-gray-500 mb-1">Salary</label>
               <select 
-                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                className="w-full h-12 pl-3 pr-10 text-base border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white"
                 value={selectedSalary}
                 onChange={(e) => setSelectedSalary(e.target.value)}
               >
@@ -179,16 +179,16 @@ const JobBoard = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div className="flex flex-col">
               <div className="flex items-center gap-3">
-                <div className="h-8 w-1 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full"></div>
+                <div className="h-8 w-1 bg-gradient-to-b from-gray-800 to-black rounded-full"></div>
                 <h3 className="text-2xl font-bold text-gray-900">Recommended Positions</h3>
               </div>
               <p className="text-gray-500 text-sm ml-4 mt-1">Curated opportunities matching your professional profile</p>
             </div>
             <div className="flex items-center ml-4 md:ml-0">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 font-medium text-sm rounded-full border border-blue-100 shadow-sm mr-3">
+              <span className="px-3 py-1.5 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 font-medium text-sm rounded-full border border-gray-200 shadow-sm mr-3">
                 24 positions
               </span>
-              <Link href="/jobs" className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 text-sm bg-white px-4 py-2 rounded-full border border-gray-100 shadow-sm hover:shadow-md transition-all">
+              <Link href="/jobs" className="text-gray-700 hover:text-gray-900 font-medium flex items-center gap-1 text-sm bg-white px-4 py-2 rounded-full border border-gray-100 shadow-sm hover:shadow-md transition-all">
                 View all jobs <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
@@ -215,7 +215,7 @@ const JobBoard = () => {
                   </div>
                   <div className="flex items-center gap-1">
                     {job.rating >= 4.7 && (
-                      <div className="px-2 py-0.5 bg-gradient-to-r from-amber-400 to-amber-500 text-white text-xs font-medium rounded-full mr-1.5 shadow-sm">
+                      <div className="px-2 py-0.5 bg-gradient-to-r from-gray-700 to-gray-900 text-white text-xs font-medium rounded-full mr-1.5 shadow-sm">
                         Featured
                       </div>
                     )}
@@ -228,7 +228,7 @@ const JobBoard = () => {
                 </div>
                 
                 {/* Job title as main focal point */}
-                <h3 className="text-xl font-bold text-blue-600 mb-3 group-hover:text-blue-700 transition-colors">{job.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gray-800 transition-colors">{job.title}</h3>
                 
                 {/* Company info */}
                 <div className="flex items-center gap-1.5 text-gray-600 mb-4">
@@ -239,26 +239,26 @@ const JobBoard = () => {
                 {/* Job details in horizontal rows */}
                 <div className="grid grid-cols-2 gap-x-4 gap-y-3 mb-5">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-blue-50">
-                      <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-100">
+                      <MapPin className="w-3.5 h-3.5 text-gray-700" />
                     </div>
                     <span className="text-sm text-gray-600">{job.location}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-green-50">
-                      <DollarSign className="w-3.5 h-3.5 text-green-600" />
+                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-100">
+                      <DollarSign className="w-3.5 h-3.5 text-gray-700" />
                     </div>
                     <span className="text-sm text-gray-600">{job.salary}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-purple-50">
-                      <Briefcase className="w-3.5 h-3.5 text-purple-600" />
+                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-100">
+                      <Briefcase className="w-3.5 h-3.5 text-gray-700" />
                     </div>
                     <span className="text-sm text-gray-600">{job.type}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-amber-50">
-                      <Clock className="w-3.5 h-3.5 text-amber-600" />
+                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-100">
+                      <Clock className="w-3.5 h-3.5 text-gray-700" />
                     </div>
                     <span className="text-sm text-gray-600">{job.applications} applied</span>
                   </div>
@@ -267,7 +267,7 @@ const JobBoard = () => {
                 {/* Skills */}
                 <div className="flex flex-wrap gap-2 mb-7">
                   {job.skills.map((skill, index) => (
-                    <span key={index} className="px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 text-xs font-medium rounded-lg border border-blue-100/30">
+                    <span key={index} className="px-3 py-1 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 text-xs font-medium rounded-lg border border-gray-200/30">
                       {skill}
                     </span>
                   ))}
@@ -276,12 +276,12 @@ const JobBoard = () => {
                 {/* View Details button with improved styling */}
                 <div className="mt-auto pt-3 flex">
                   <Link href={`/jobs/${job.id}`} className="w-full">
-                    <button className="w-full h-11 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-medium transition-all duration-300 shadow-sm hover:shadow">
+                    <button className="w-full h-11 bg-gradient-to-r from-gray-800 to-black hover:from-black hover:to-gray-900 text-white rounded-lg font-medium transition-all duration-300 shadow-sm hover:shadow">
                       View Details
                     </button>
                   </Link>
-                  <button className="flex items-center justify-center w-11 h-11 ml-2 border border-gray-200 rounded-lg hover:border-blue-200 hover:bg-blue-50 transition-all duration-300 group">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-400 group-hover:text-blue-500 transition-colors">
+                  <button className="flex items-center justify-center w-11 h-11 ml-2 border border-gray-200 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 group">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-400 group-hover:text-gray-600 transition-colors">
                       <path d="M19 21L12 17L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>

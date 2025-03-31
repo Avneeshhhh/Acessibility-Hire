@@ -57,7 +57,7 @@ const About = () => {
   return (
     <section ref={containerRef} id="about" className="py-20 md:py-28 relative overflow-hidden">
       {/* Simplified background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/10 to-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/10 to-white">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
       </div>
       
@@ -65,14 +65,14 @@ const About = () => {
         {/* Section Header - Left Aligned with scroll hint */}
         <div className="text-left max-w-4xl mb-10 md:mb-12">
           <div className="flex items-center gap-2 mb-5">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 text-sm font-bold text-blue-700 rounded-full border border-blue-100 bg-white">
-              <Sparkles className="w-4 h-4 text-blue-500" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 text-sm font-bold text-gray-900 rounded-full border border-gray-200 bg-white">
+              <Sparkles className="w-4 h-4 text-gray-700" />
               <span>ABOUT US</span>
             </div>
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-gray-900">
-            <span className="text-blue-700">
+            <span className="text-gray-800">
               Reimagining
             </span> recruitment for the <br className="hidden md:block" /> 
             <span className="relative inline-block">
@@ -106,7 +106,7 @@ const About = () => {
                 <h3 className="text-xl md:text-2xl font-bold mb-4 text-gray-900">{feature.title}</h3>
                 <p className="text-base md:text-lg text-gray-600 mb-5 md:mb-6">{feature.description}</p>
                 
-                <Link href={feature.link} className="inline-flex items-center text-base font-medium text-blue-600 hover:text-blue-700">
+                <Link href={feature.link} className="inline-flex items-center text-base font-medium text-gray-800 hover:text-black">
                   Learn more
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
@@ -117,7 +117,7 @@ const About = () => {
           {/* Scroll Indicator */}
           <div className="mt-4 flex items-center gap-2">
             <div className="h-1 w-12 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full w-1/3 bg-blue-500 rounded-full"></div>
+              <div className="h-full w-1/3 bg-gray-600 rounded-full"></div>
             </div>
             <span className="text-xs text-gray-500">Scroll to see more</span>
           </div>
@@ -125,7 +125,7 @@ const About = () => {
           {/* CTA Button - Left Aligned */}
           <div className="flex justify-start mt-10 md:mt-16">
             <Link href="/about">
-              <button className="py-3 px-7 bg-blue-600 hover:bg-blue-700 text-white text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2">
+              <button className="py-3 px-7 bg-gray-900 hover:bg-black text-white text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2">
                 Learn more about us
                 <ArrowRight className="w-5 h-5" />
               </button>

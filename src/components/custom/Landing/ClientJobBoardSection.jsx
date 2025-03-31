@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/authContext';
 import JobBoard from './JobBoard';
 import Link from 'next/link';
@@ -9,6 +9,28 @@ import { motion } from 'framer-motion';
 
 const ClientJobBoardSection = () => {
   const { user } = useAuth();
+  const [isClient, setIsClient] = useState(false);
+  
+  // Ensure component only renders fully on client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // If not yet client-side, show minimal placeholder
+  if (!isClient) {
+    return (
+      <section className="py-16 bg-slate-50/50">
+        <div className="container-fluid mx-auto px-4 sm:px-6 lg:px-8 max-w-[1920px]">
+          <div className="max-w-5xl mx-auto mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">Exclusive Job Opportunities</h2>
+            <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto">
+              Log in to access our personalized job board with exclusive positions from top inclusive employers.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   // If user is logged in, show the job board
   if (user) {
@@ -71,15 +93,15 @@ const ClientJobBoardSection = () => {
               <div className="mt-8 pt-6 border-t border-gray-100">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="text-center p-4">
-                    <div className="text-xl font-bold text-blue-700 mb-1">200+</div>
+                    <div className="text-xl font-bold text-gray-700 mb-1">200+</div>
                     <div className="text-sm text-gray-600">Inclusive Employers</div>
                   </div>
                   <div className="text-center p-4">
-                    <div className="text-xl font-bold text-blue-700 mb-1">500+</div>
+                    <div className="text-xl font-bold text-gray-700 mb-1">500+</div>
                     <div className="text-sm text-gray-600">Exclusive Positions</div>
                   </div>
                   <div className="text-center p-4">
-                    <div className="text-xl font-bold text-blue-700 mb-1">24/7</div>
+                    <div className="text-xl font-bold text-gray-700 mb-1">24/7</div>
                     <div className="text-sm text-gray-600">Support Available</div>
                   </div>
                 </div>
@@ -88,7 +110,7 @@ const ClientJobBoardSection = () => {
           </motion.div>
           
           <div className="text-center mt-6 text-sm text-gray-500">
-            Already have an account but can't log in? <Link href="/help" className="text-blue-600 hover:underline">Get help</Link>
+            Already have an account but can't log in? <Link href="/help" className="text-gray-700 hover:underline">Get help</Link>
           </div>
         </div>
       </div>

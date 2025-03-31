@@ -78,11 +78,47 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable}`}>
-      <body className={`min-h-screen font-sans ${poppins.className}`}>
+    <html lang="en" className={`${poppins.variable}`} suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className={`min-h-screen font-sans ${poppins.className}`} suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              try {
+                // Mutation observer to remove problematic attributes
+                const observer = new MutationObserver((mutations) => {
+                  for (const mutation of mutations) {
+                    if (mutation.type === 'attributes') {
+                      if (mutation.attributeName === 'cz-shortcut-listen') {
+                        mutation.target.removeAttribute('cz-shortcut-listen');
+                      }
+                    }
+                  }
+                });
+                
+                // Start observing the document with the configured parameters
+                observer.observe(document.body, { 
+                  attributes: true,
+                  childList: false,
+                  subtree: true,
+                  attributeFilter: ['cz-shortcut-listen']
+                });
+                
+                // Also remove any existing attributes
+                document.querySelectorAll('[cz-shortcut-listen]').forEach(el => {
+                  el.removeAttribute('cz-shortcut-listen');
+                });
+              } catch (e) {
+                console.error('Error in hydration fix script:', e);
+              }
+            })();
+          `
+        }} />
       </body>
     </html>
   );

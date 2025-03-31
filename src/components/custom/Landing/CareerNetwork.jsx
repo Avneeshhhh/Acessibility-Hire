@@ -48,22 +48,22 @@ const CareerNetwork = () => {
   return (
     <section className="py-20 md:py-20 relative overflow-hidden w-full">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/10 to-white"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/10 to-white"></div>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] opacity-40"></div>
         {/* Enhanced background circles */}
-        <div className="absolute top-20 right-1/4 w-[500px] h-[500px] rounded-full bg-blue-100/20 blur-[100px] opacity-30" aria-hidden="true"></div>
-        <div className="absolute -bottom-20 left-1/4 w-[400px] h-[400px] rounded-full bg-purple-100/20 blur-[80px] opacity-20" aria-hidden="true"></div>
+        <div className="absolute top-20 right-1/4 w-[500px] h-[500px] rounded-full bg-gray-200/20 blur-[100px] opacity-30" aria-hidden="true"></div>
+        <div className="absolute -bottom-20 left-1/4 w-[400px] h-[400px] rounded-full bg-gray-300/20 blur-[80px] opacity-20" aria-hidden="true"></div>
       </div>
       
       <div className="container-fluid mx-auto px-3 sm:px-5 md:px-6 lg:px-10 xl:px-14 2xl:px-16 max-w-[1920px] relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-14 md:mb-16 lg:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 text-sm font-bold text-blue-700 rounded-full border border-blue-100 bg-white shadow-sm">
-            <Network className="w-4 h-4 text-blue-500" />
+          {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 text-sm font-bold text-gray-900 rounded-full border border-gray-200 bg-white shadow-sm">
+            <Network className="w-4 h-4 text-gray-700" />
             <span>CAREER RESOURCES</span>
-          </div>
+          </div> */}
           
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-gray-900">
-            <span className="text-blue-700">Accelerate Your Career</span> Growth
+            <span className="text-gray-800">Accelerate Your Career</span> Growth
           </h2>
           
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto lg:max-w-4xl">
@@ -76,7 +76,7 @@ const CareerNetwork = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`cursor-pointer border ${activeFeature === index ? 'border-blue-500 shadow-lg' : 'border-gray-200 shadow-sm'} rounded-xl overflow-hidden bg-white hover:shadow-lg transition-all duration-300`}
+              className={`cursor-pointer border ${activeFeature === index ? 'border-gray-800 shadow-lg' : 'border-gray-200 shadow-sm'} rounded-xl overflow-hidden bg-white hover:shadow-lg transition-all duration-300`}
               onClick={() => setActiveFeature(index)}
             >
               {/* Card Image Section */}
@@ -104,7 +104,7 @@ const CareerNetwork = () => {
               <div className="p-6 lg:p-7">
                 <p className="text-base text-gray-700 mb-6">{feature.description}</p>
                 <Link href={feature.link}>
-                  <button className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2">
+                  <button className="w-full py-3 bg-gray-900 hover:bg-black text-white text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2">
                     {feature.buttonText}
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -117,34 +117,25 @@ const CareerNetwork = () => {
         {/* Bottom CTA */}
         <div className="max-w-[1800px] mx-auto px-0 xl:px-8 2xl:px-16">
           <div className="bg-white rounded-xl p-8 lg:p-10 shadow-lg border border-gray-200 overflow-hidden">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-12 xl:gap-20">
-              <div className="lg:w-3/5 xl:w-2/3">
-                <h3 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-5 text-gray-800">
-                  Empower Your Professional Journey
-                </h3>
-                <p className="text-base md:text-lg text-gray-700 mb-6 xl:pr-12">
-                  Join 5,000+ professionals on Accessibility Hire and take control of your career. 
-                  Create your profile to unlock opportunities tailored to your unique skills.
-                </p>
-                
-                {/* Benefits List */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 mb-6">
-                  {benefits.map((benefit, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                        <benefit.icon className="w-5 h-5 text-blue-600" />
-                      </div>
-                      <span className="text-base lg:text-lg text-gray-700">{benefit.text}</span>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+              <div className="lg:col-span-2">
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">Ready to Transform Your Hiring Process?</h3>
+                <p className="text-lg text-gray-700 mb-6">Join thousands of companies who have already modernized their recruitment with our platform.</p>
+                <div className="flex flex-wrap gap-4">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg">
+                      <benefit.icon className="w-5 h-5 text-gray-700" />
+                      <span className="text-sm font-medium text-gray-900">{benefit.text}</span>
                     </div>
                   ))}
                 </div>
               </div>
               
-              <div className="lg:w-2/5 xl:w-1/3 flex flex-col items-center text-center p-6 lg:p-8 bg-blue-50 rounded-xl border border-blue-100">
+              <div className="lg:col-span-1 flex flex-col items-center text-center p-6 lg:p-8 bg-gray-50 rounded-xl border border-gray-200">
                 <h4 className="text-xl lg:text-2xl font-bold text-gray-800 mb-3 lg:mb-4">Ready to Get Started?</h4>
                 <p className="text-base lg:text-lg text-gray-700 mb-5 lg:mb-6">Create your profile in less than 5 minutes and start connecting with inclusive employers.</p>
                 <Link href="/register">
-                  <button className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+                  <button className="w-full py-3 px-6 bg-gray-900 hover:bg-black text-white text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
                     Let's Get Started
                     <ArrowRight className="w-5 h-5" />
                   </button>

@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
-import { Star, Building } from 'lucide-react';
+import { Star, Building, MessageSquare } from 'lucide-react';
 
 const testimonials = [
   {
@@ -65,7 +65,7 @@ const TestimonialCard = ({ testimonial }) => {
     <div className="bg-white rounded-xl p-7 shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
       <div className="flex justify-between items-center mb-6">
         <div className="flex gap-3 items-center">
-          <div className="relative w-14 h-14 overflow-hidden rounded-full border-2 border-blue-100">
+          <div className="relative w-14 h-14 overflow-hidden rounded-full border-2 border-gray-200">
             <Image
               src={testimonial.image}
               alt={testimonial.name}
@@ -94,7 +94,7 @@ const TestimonialCard = ({ testimonial }) => {
         <p className="text-sm text-gray-500">{testimonial.date}</p>
         {testimonial.company && (
           <div className="flex items-center gap-1.5">
-            <Building className="w-4 h-4 text-blue-600" />
+            <Building className="w-4 h-4 text-gray-700" />
             <span className="text-sm font-medium text-gray-700">{testimonial.company}</span>
           </div>
         )}
@@ -106,23 +106,23 @@ const TestimonialCard = ({ testimonial }) => {
 const Testimonials = () => {
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/10 to-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/10 to-white">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
       </div>
       
       <div className="container mx-auto px-5 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-14 md:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 text-sm font-bold text-blue-700 rounded-full border border-blue-100 bg-white">
-            <Star className="w-4 h-4 text-blue-500" />
+        <div className="text-center max-w-4xl mx-auto mb-14 md:mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 text-sm font-bold text-gray-900 rounded-full border border-gray-200 bg-white shadow-sm">
+            <MessageSquare className="w-4 h-4 text-gray-700" />
             <span>TESTIMONIALS</span>
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-gray-900">
-            Trusted by <span className="text-blue-700">Professionals</span> Like You
+            What Our <span className="text-gray-800">Community</span> Says
           </h2>
           
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
-            Discover what others are saying about their experiences with our platform and how it has transformed their careers.
+            Hear from professionals who have found their ideal roles and employers who have connected with exceptional talent.
           </p>
         </div>
         
