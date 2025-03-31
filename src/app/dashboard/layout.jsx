@@ -171,7 +171,7 @@ const DashboardLayout = ({ children }) => {
         </nav>
         
         {/* Logout button */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-gray-200 mb-4">
           <button
             onClick={handleLogout}
             className="flex items-center px-3 py-2 w-full text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-md"
