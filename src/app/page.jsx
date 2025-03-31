@@ -17,8 +17,8 @@ export default function Home() {
       <NavBar />
       <HeroSection />
       {/* <Companies /> */}
-      <ATSFor />
       <CareerNetwork />
+      <ATSFor />
       {/* <Pills /> */}
       <About />
       {/* <FAQ /> */}

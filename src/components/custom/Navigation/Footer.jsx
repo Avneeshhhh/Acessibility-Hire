@@ -95,15 +95,34 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
+            
+            {/* Company Links */}
+            <div className="mt-8">
+              <h3 className="text-gray-900 font-semibold mb-4 text-base">Company</h3>
+              <ul className="space-y-2.5">
+                <li>
+                  <Link href="/about" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                    <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
+                    <span>About Us</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                    <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
+                    <span>Contact Us</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          {/* Company and Newsletter */}
+          {/* Newsletter */}
           <div>
             <h3 className="text-gray-900 font-semibold mb-4 text-base">Stay Connected</h3>
-            <p className="text-gray-700 mb-3 text-sm">
+            <p className="text-gray-700 mb-4 text-sm">
               Subscribe to our newsletter for the latest updates and job listings.
             </p>
-            <div className="relative">
+            <div className="relative mb-6">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <Mail className="w-4 h-4 text-gray-500" />
               </div>
@@ -121,29 +140,31 @@ const Footer = () => {
               </button>
             </div>
             
-            <h3 className="text-gray-900 font-semibold mb-3 text-base">Company</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-700 hover:text-blue-700 transition-colors text-sm focus:outline-none focus:text-blue-700">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-700 hover:text-blue-700 transition-colors text-sm focus:outline-none focus:text-blue-700">
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
+            <div className="flex space-x-3 mt-4">
+              {/* Social Icons */}
+              <a href="#" className="text-gray-600 hover:text-blue-700 transition-colors p-2 bg-white rounded-full shadow-sm" aria-label="Facebook">
+                <Facebook className="w-4 h-4" aria-hidden="true" />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-700 transition-colors p-2 bg-white rounded-full shadow-sm" aria-label="Twitter">
+                <Twitter className="w-4 h-4" aria-hidden="true" />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-700 transition-colors p-2 bg-white rounded-full shadow-sm" aria-label="LinkedIn">
+                <Linkedin className="w-4 h-4" aria-hidden="true" />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-700 transition-colors p-2 bg-white rounded-full shadow-sm" aria-label="Instagram">
+                <Instagram className="w-4 h-4" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 pt-5 border-t border-blue-100">
+        <div className="mt-12 pt-6 border-t border-blue-100">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
             <p className="text-gray-600 text-sm">
               © {currentYear} Accessibility Hire. All Rights Reserved.
             </p>
-            <div className="flex space-x-6">
+            <div className="flex space-x-6 mt-2 sm:mt-0">
               <Link href="/privacy-policy" className="text-gray-700 hover:text-blue-700 transition-colors text-sm focus:outline-none focus:text-blue-700">
                 Privacy Policy
               </Link>
