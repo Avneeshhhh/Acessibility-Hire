@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Briefcase, MapPin, DollarSign, Calendar, Building2, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Briefcase, MapPin, DollarSign, Calendar, Building2, ArrowLeft, ExternalLink, Tag } from 'lucide-react';
 import Link from 'next/link';
 import { getJobById } from '@/lib/firebase';
 import { useAuth } from '@/lib/authContext';
@@ -13,7 +13,6 @@ export default function JobDetailPage() {
   const [job, setJob] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [applicationStatus, setApplicationStatus] = useState('not_applied');
 
   useEffect(() => {
     async function fetchJobDetails() {
@@ -27,12 +26,6 @@ export default function JobDetailPage() {
         
         if (success && job) {
           setJob(job);
-          
-          // Check if user has already applied
-          // This would ideally be implemented in your backend
-          // For now, just simulating a status
-          setApplicationStatus('not_applied');
-          
         } else {
           throw new Error(error || 'Failed to fetch job details');
         }
@@ -47,21 +40,21 @@ export default function JobDetailPage() {
     fetchJobDetails();
   }, [id]);
 
-  const handleApply = async () => {
-    if (!user) {
+  const handleApply = () => {
+    if (!user && !job.contactLink) {
       router.push('/login?redirect=' + encodeURIComponent(`/job/${id}`));
       return;
     }
     
-    setApplicationStatus('submitting');
-    
-    // Simulate application submission
-    setTimeout(() => {
-      setApplicationStatus('applied');
-    }, 1500);
-    
-    // In a real app, you would submit to your backend:
-    // await applyToJob(id, user.uid);
+    // If there's a contact link, redirect to it
+    if (job.contactLink) {
+      const link = job.contactLink.startsWith('http') 
+        ? job.contactLink 
+        : job.contactLink.includes('@') 
+          ? `mailto:${job.contactLink}` 
+          : `https://${job.contactLink}`;
+      window.open(link, '_blank');
+    }
   };
 
   if (isLoading) {
@@ -97,7 +90,7 @@ export default function JobDetailPage() {
             <h2 className="text-xl font-bold mb-2">Error</h2>
             <p>{error || 'Job not found'}</p>
             <Link 
-              href="/" 
+              href="/jobs" 
               className="mt-4 inline-flex items-center text-red-700 font-medium hover:text-red-800"
             >
               <ArrowLeft className="h-4 w-4 mr-1.5" />
@@ -114,7 +107,7 @@ export default function JobDetailPage() {
       <div className="max-w-3xl mx-auto">
         {/* Navigation */}
         <Link 
-          href="/" 
+          href="/jobs" 
           className="inline-flex items-center text-gray-600 font-medium hover:text-indigo-600 mb-6"
         >
           <ArrowLeft className="h-4 w-4 mr-1.5" />
@@ -148,7 +141,7 @@ export default function JobDetailPage() {
                 </div>
               )}
               
-              <div className="flex flex-wrap gap-4 pb-6 border-b border-gray-100">
+              <div className="flex flex-wrap gap-4 mb-6">
                 {job.location && (
                   <div className="flex items-center text-gray-700">
                     <MapPin className="h-5 w-5 mr-1.5 text-indigo-500" />
@@ -176,6 +169,30 @@ export default function JobDetailPage() {
                   </span>
                 </div>
               </div>
+              
+              {/* Skills Section */}
+              {job.skills && job.skills.length > 0 && (
+                <div className="mb-6">
+                  <div className="flex items-center mb-2">
+                    <Tag className="h-4 w-4 mr-1.5 text-gray-500" />
+                    <h3 className="text-sm font-medium text-gray-700">Skills</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {job.skills.map((skill, index) => (
+                      <span 
+                        key={index} 
+                        className="bg-indigo-50 text-indigo-800 text-xs font-medium px-2.5 py-1 rounded-full"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              <div className="pt-6 border-t border-gray-100">
+                {/* Description stays below the border */}
+              </div>
             </div>
             
             {/* Job Description */}
@@ -191,36 +208,18 @@ export default function JobDetailPage() {
             
             {/* Call to Action */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-6 border-t border-gray-100">
-              {applicationStatus === 'not_applied' ? (
-                <button
-                  onClick={handleApply}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors"
-                >
-                  <Briefcase className="h-5 w-5 mr-2" />
-                  Apply for this position
-                </button>
-              ) : applicationStatus === 'submitting' ? (
-                <button
-                  disabled
-                  className="inline-flex items-center justify-center px-6 py-3 bg-indigo-500 text-white font-medium rounded-lg shadow-sm opacity-80 cursor-not-allowed"
-                >
-                  <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Applying...
-                </button>
-              ) : (
-                <div className="inline-flex items-center px-6 py-3 bg-green-50 text-green-700 font-medium rounded-lg">
-                  <svg className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  Application Submitted
-                </div>
-              )}
+              <button
+                onClick={handleApply}
+                className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors"
+              >
+                <Briefcase className="h-5 w-5 mr-2" />
+                {job.contactLink && job.contactLink.includes('@') 
+                  ? 'Contact via Email'
+                  : 'Apply for this position'}
+              </button>
               
               <Link 
-                href="/" 
+                href="/jobs" 
                 className="inline-flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
               >
                 View more jobs

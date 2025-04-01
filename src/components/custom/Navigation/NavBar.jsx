@@ -170,9 +170,9 @@ const NavBar = () => {
                   {DesktopJobsDropdown}
                 </div>
                 
-                <NavLink href="/employers" isActive={isActive('/employers')}>
+                {/* <NavLink href="/employers" isActive={isActive('/employers')}>
                   For Employers
-                </NavLink>
+                </NavLink> */}
               </div>
             </nav>
           )}

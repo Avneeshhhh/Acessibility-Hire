@@ -5,7 +5,7 @@ import NavBar from "@/components/custom/Navigation/NavBar";
 import Footer from "@/components/custom/Navigation/Footer";
 import ChatBotWrapper from "@/components/custom/Chatbot/ChatBotWrapper";
 import { motion } from 'framer-motion';
-import { Briefcase, Search, MapPin, Filter, DollarSign, Clock, Building2, X } from 'lucide-react';
+import { Briefcase, Search, MapPin, Filter, DollarSign, Clock, Building2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getAllJobPosts } from '@/lib/firebase';
 import Link from 'next/link';
 
@@ -18,6 +18,10 @@ export default function JobsPage() {
     location: '',
     showFilters: false
   });
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobsPerPage] = useState(9);
 
   useEffect(() => {
     async function fetchJobs() {
@@ -43,18 +47,35 @@ export default function JobsPage() {
     fetchJobs();
   }, []);
 
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filters]);
+
   // Filter jobs based on search term and other filters
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = searchTerm === '' || 
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (job.desc && job.desc.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (job.organization?.org_name && job.organization.org_name.toLowerCase().includes(searchTerm.toLowerCase()));
+      (job.organization?.org_name && job.organization.org_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (job.skills && job.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase())));
     
     const matchesLocation = filters.location === '' || 
       (job.location && job.location.toLowerCase().includes(filters.location.toLowerCase()));
     
     return matchesSearch && matchesLocation;
   });
+
+  // Get current jobs for pagination
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const goToNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  const goToPrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
 
   // Clear all filters
   const clearFilters = () => {
@@ -87,6 +108,30 @@ export default function JobsPage() {
       y: 0,
       transition: { duration: 0.5, ease: "easeOut" }
     }
+  };
+
+  // Generate page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
+  // Simplified page range for large number of pages
+  const getPageRange = () => {
+    if (totalPages <= 5) {
+      return pageNumbers;
+    }
+    
+    let range = [];
+    if (currentPage <= 3) {
+      range = [1, 2, 3, 4, 5];
+    } else if (currentPage >= totalPages - 2) {
+      range = [totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+    } else {
+      range = [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2];
+    }
+    
+    return range.filter(p => p > 0 && p <= totalPages);
   };
 
   return (
@@ -184,7 +229,16 @@ export default function JobsPage() {
           {/* Header with job count */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2 sm:mb-0">
-              {!isLoading && !error ? filteredJobs.length : "0"} Jobs Available
+              {!isLoading && !error ? (
+                <>
+                  {filteredJobs.length} Jobs Available
+                  {filteredJobs.length > 0 && (
+                    <span className="text-sm font-normal text-gray-500 ml-2">
+                      (Showing {indexOfFirstJob + 1}-{Math.min(indexOfLastJob, filteredJobs.length)} of {filteredJobs.length})
+                    </span>
+                  )}
+                </>
+              ) : "0 Jobs Available"}
             </h2>
             
             {hasActiveFilters && (
@@ -231,10 +285,6 @@ export default function JobsPage() {
                     <div className="h-4 w-28 bg-gray-200 rounded"></div>
                     <div className="h-4 w-20 bg-gray-200 rounded"></div>
                   </div>
-                  <div className="flex items-center space-x-4 mb-3">
-                    <div className="h-4 w-24 bg-gray-200 rounded"></div>
-                    <div className="h-4 w-24 bg-gray-200 rounded"></div>
-                  </div>
                   <div className="flex space-x-2 mb-4">
                     <div className="h-7 w-16 bg-gray-100 rounded-full"></div>
                     <div className="h-7 w-24 bg-gray-100 rounded-full"></div>
@@ -245,85 +295,161 @@ export default function JobsPage() {
               ))}
             </div>
           ) : filteredJobs.length > 0 ? (
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              {filteredJobs.map((job, index) => (
-                <motion.div
-                  key={job.id}
-                  variants={itemVariants}
-                  className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex justify-between items-start mb-1">
-                    <div>
-                      <div className="text-sm text-gray-700 mb-1">
-                        {job.organization?.org_name || 'Tech Solutio Inc.'}
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        {job.title || 'Senior Frontend Developer'}
-                      </h3>
-                    </div>
-                    {index % 3 === 0 && (
-                      <div className="bg-amber-500 text-white text-xs font-medium px-2.5 py-1 rounded">
-                        Featured
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="mb-3">
-                    <div className="flex items-center">
-                      <Building2 className="h-4 w-4 text-gray-500 mr-2" />
-                      <span className="text-sm text-gray-700">{job.organization?.org_name || 'Tech Solutions Inc.'}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex mb-1">
-                    <div className="flex items-center mr-6">
-                      <MapPin className="h-4 w-4 text-gray-500 mr-2" />
-                      <span className="text-sm text-gray-700">{job.location || 'New York, USA'}</span>
-                    </div>
-                    
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 text-gray-500 mr-2" />
-                      <span className="text-sm text-gray-700">{job.salary || '$120K/yr'}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center mb-4">
-                    <Briefcase className="h-4 w-4 text-gray-500 mr-2" />
-                    <span className="text-sm text-gray-700">{job.job_type || 'Full-time'}</span>
-                    
-                    {job.posted && (
-                      <div className="flex items-center ml-6">
-                        <Clock className="h-4 w-4 text-gray-500 mr-2" />
-                        <span className="text-sm text-gray-700">{`${Math.floor(Math.random() * 7) + 1}d ago`}</span>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {['React', 'TypeScript', 'UI/UX'].slice(0, 3).map((skill, i) => (
-                      <span 
-                        key={i}
-                        className="bg-gray-100 text-gray-700 text-xs px-2.5 py-1 rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <Link 
-                    href={`/job/${job.id}`}
-                    className="block w-full bg-gray-900 hover:bg-black text-white text-center font-medium py-2 rounded transition-colors"
+            <>
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {currentJobs.map((job, index) => (
+                  <motion.div
+                    key={job.id}
+                    variants={itemVariants}
+                    className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
                   >
-                    View Details
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
+                    <div className="flex justify-between items-start mb-1">
+                      <div>
+                        <div className="text-sm text-gray-700 mb-1">
+                          {job.organization?.org_name || 'Company Name'}
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          {job.title}
+                        </h3>
+                      </div>
+                      {index % 3 === 0 && (
+                        <div className="bg-amber-500 text-white text-xs font-medium px-2.5 py-1 rounded">
+                          Featured
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mb-3">
+                      <div className="flex items-center">
+                        <Building2 className="h-4 w-4 text-gray-500 mr-2" />
+                        <span className="text-sm text-gray-700">{job.organization?.org_name || 'Company Name'}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-wrap mb-1">
+                      {job.location && (
+                        <div className="flex items-center mr-6 mb-2">
+                          <MapPin className="h-4 w-4 text-gray-500 mr-2" />
+                          <span className="text-sm text-gray-700">{job.location}</span>
+                        </div>
+                      )}
+                      
+                      {job.salary && (
+                        <div className="flex items-center mb-2">
+                          <DollarSign className="h-4 w-4 text-gray-500 mr-2" />
+                          <span className="text-sm text-gray-700">{job.salary}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center mb-4">
+                      <Clock className="h-4 w-4 text-gray-500 mr-2" />
+                      <span className="text-sm text-gray-700">
+                        {job.created_at instanceof Date
+                          ? new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(
+                              -Math.round((Date.now() - job.created_at.getTime()) / (1000 * 60 * 60 * 24)),
+                              'day'
+                            ).replace('in ', '')
+                          : 'Recently posted'}
+                      </span>
+                    </div>
+                    
+                    {/* Display Skills Tags */}
+                    {job.skills && job.skills.length > 0 && (
+                      <div className="mt-4 mb-4">
+                        <div className="flex flex-wrap gap-1.5">
+                          {job.skills.slice(0, 3).map((skill, i) => (
+                            <span 
+                              key={i}
+                              className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                          {job.skills.length > 3 && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                              +{job.skills.length - 3} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-end">
+                      <Link
+                        href={`/job/${job.id}`}
+                        className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-700"
+                      >
+                        View Details
+                        <svg
+                          className="ml-1 w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </Link>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+              
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex justify-center mt-10">
+                  <nav className="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                    <button
+                      onClick={goToPrevPage}
+                      disabled={currentPage === 1}
+                      className={`relative inline-flex items-center px-3 py-2 rounded-l-md border ${
+                        currentPage === 1 
+                          ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                          : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    
+                    {getPageRange().map(number => (
+                      <button
+                        key={number}
+                        onClick={() => paginate(number)}
+                        className={`relative inline-flex items-center px-4 py-2 border ${
+                          currentPage === number
+                            ? 'z-10 bg-indigo-600 text-white border-indigo-600' 
+                            : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {number}
+                      </button>
+                    ))}
+                    
+                    <button
+                      onClick={goToNextPage}
+                      disabled={currentPage === totalPages}
+                      className={`relative inline-flex items-center px-3 py-2 rounded-r-md border ${
+                        currentPage === totalPages 
+                          ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                          : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
+                  </nav>
+                </div>
+              )}
+            </>
           ) : (
             <motion.div 
               initial={{ opacity: 0 }}

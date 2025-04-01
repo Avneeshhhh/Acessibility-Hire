@@ -2,7 +2,9 @@
 import { useState, useEffect } from 'react';
 import { createJobPost, getUserJobPosts, getUserOrganization } from '@/lib/firebase';
 import { useAuth } from '@/lib/authContext';
-import { Briefcase, MapPin, DollarSign, FileText, Calendar, PlusCircle, RefreshCw } from 'lucide-react';
+import { Briefcase, MapPin, DollarSign, FileText, Calendar, PlusCircle, RefreshCw, Link as LinkIcon, Tag, Clock, Building2, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const JobPostManager = () => {
   const { user } = useAuth();
@@ -14,11 +16,17 @@ const JobPostManager = () => {
   const [success, setSuccess] = useState('');
   const [showForm, setShowForm] = useState(false);
   
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobsPerPage] = useState(6);
+  
   // Form fields
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [location, setLocation] = useState('');
   const [salary, setSalary] = useState('');
+  const [skills, setSkills] = useState('');
+  const [contactLink, setContactLink] = useState('');
 
   const fetchData = async () => {
     if (!user) return;
@@ -58,6 +66,40 @@ const JobPostManager = () => {
     fetchData();
   }, [user]);
 
+  // Get current jobs for pagination
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = jobPosts.slice(indexOfFirstJob, indexOfLastJob);
+  const totalPages = Math.ceil(jobPosts.length / jobsPerPage);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const goToNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  const goToPrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+
+  // Get page range for pagination
+  const getPageRange = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    
+    if (totalPages <= 5) {
+      return pageNumbers;
+    }
+    
+    let range = [];
+    if (currentPage <= 3) {
+      range = [1, 2, 3, 4, 5];
+    } else if (currentPage >= totalPages - 2) {
+      range = [totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+    } else {
+      range = [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2];
+    }
+    
+    return range.filter(p => p > 0 && p <= totalPages);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -83,12 +125,19 @@ const JobPostManager = () => {
       return;
     }
     
+    // Parse skills from comma-separated list to array
+    const skillsArray = skills.trim() 
+      ? skills.split(',').map(skill => skill.trim()).filter(Boolean)
+      : [];
+    
     try {
       const { success, jobId, error } = await createJobPost({
         title,
         desc,
         location,
-        salary
+        salary,
+        skills: skillsArray,
+        contactLink
       });
       
       if (success) {
@@ -100,6 +149,8 @@ const JobPostManager = () => {
         setDesc('');
         setLocation('');
         setSalary('');
+        setSkills('');
+        setContactLink('');
         
         // Refresh job posts
         fetchData();
@@ -115,15 +166,42 @@ const JobPostManager = () => {
     }
   };
   
+  // Animation variants for staggered animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" }
+    }
+  };
+  
   if (isLoading && !organization) {
     return (
       <div className="bg-white rounded-xl p-6 shadow-md">
         <div className="animate-pulse">
           <div className="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-1/2 mb-6"></div>
-          <div className="space-y-2">
-            <div className="h-24 bg-gray-200 rounded"></div>
-            <div className="h-24 bg-gray-200 rounded"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="bg-gray-100 p-5 rounded-lg">
+                <div className="h-6 bg-gray-200 rounded w-48 mb-3"></div>
+                <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-full mb-4"></div>
+                <div className="h-8 bg-gray-200 rounded w-1/3"></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -147,9 +225,17 @@ const JobPostManager = () => {
   return (
     <div className="bg-white rounded-xl p-6 md:p-8 shadow-md">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">
-          {organization.org_name}'s Job Posts
-        </h2>
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800">
+            {organization.org_name}'s Job Posts
+          </h2>
+          {jobPosts.length > 0 && (
+            <p className="text-gray-500 text-sm">
+              {jobPosts.length} {jobPosts.length === 1 ? 'job' : 'jobs'} posted
+              {jobPosts.length > jobsPerPage && ` (Showing ${indexOfFirstJob + 1}-${Math.min(indexOfLastJob, jobPosts.length)} of ${jobPosts.length})`}
+            </p>
+          )}
+        </div>
         
         <div className="flex space-x-2">
           <button
@@ -247,6 +333,44 @@ const JobPostManager = () => {
             </div>
             
             <div>
+              <label htmlFor="skills" className="block text-sm font-medium text-gray-700 mb-1">
+                Skills (comma separated)
+              </label>
+              <div className="relative rounded-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Tag className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  id="skills"
+                  value={skills}
+                  onChange={(e) => setSkills(e.target.value)}
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder="e.g. React, JavaScript, Node.js"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label htmlFor="contactLink" className="block text-sm font-medium text-gray-700 mb-1">
+                Contact Link
+              </label>
+              <div className="relative rounded-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <LinkIcon className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  id="contactLink"
+                  value={contactLink}
+                  onChange={(e) => setContactLink(e.target.value)}
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder="e.g. https://company.com/apply or email@example.com"
+                />
+              </div>
+            </div>
+            
+            <div>
               <label htmlFor="desc" className="block text-sm font-medium text-gray-700 mb-1">
                 Job Description <span className="text-red-500">*</span>
               </label>
@@ -260,37 +384,26 @@ const JobPostManager = () => {
                   onChange={(e) => setDesc(e.target.value)}
                   rows="6"
                   className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Describe the job requirements, responsibilities, and qualifications..."
+                  placeholder="Enter a detailed job description"
                   required
                 ></textarea>
               </div>
             </div>
             
-            <div className="flex justify-end space-x-3 pt-4">
+            <div className="flex justify-end space-x-3 pt-3">
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-6 rounded-md hover:bg-gray-50"
+                className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Cancel
               </button>
-              
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className={`px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                {isSubmitting ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Posting...
-                  </>
-                ) : (
-                  "Post Job"
-                )}
+                {isSubmitting ? 'Posting...' : 'Post Job'}
               </button>
             </div>
           </form>
@@ -298,60 +411,164 @@ const JobPostManager = () => {
       )}
       
       {/* Job Posts List */}
-      <div className="space-y-6">
-        {jobPosts.length === 0 ? (
-          <div className="text-center py-12 border border-dashed border-gray-300 rounded-xl bg-gray-50">
-            <Briefcase className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-700 mb-2">No Job Posts Yet</h3>
-            <p className="text-gray-500 mb-6 max-w-md mx-auto">
-              Your organization hasn't posted any jobs yet. Click "Post a Job" to create your first job listing.
-            </p>
-          </div>
-        ) : (
-          jobPosts.map((job) => (
-            <div key={job.id} className="border border-gray-200 rounded-xl overflow-hidden">
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  {job.title}
-                </h3>
+      {jobPosts.length === 0 ? (
+        <div className="text-center py-12 border border-dashed border-gray-300 rounded-xl bg-gray-50">
+          <Briefcase className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-700 mb-2">No Job Posts Yet</h3>
+          <p className="text-gray-500 mb-6 max-w-md mx-auto">
+            Your organization hasn't posted any jobs yet. Click "Post a Job" to create your first job listing.
+          </p>
+        </div>
+      ) : (
+        <>
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
+          >
+            {currentJobs.map((job, index) => (
+              <motion.div
+                key={job.id}
+                variants={itemVariants}
+                className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
+              >
+                <div className="flex justify-between items-start mb-1">
+                  <div>
+                    <div className="text-sm text-gray-700 mb-1">
+                      {organization.org_name}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {job.title}
+                    </h3>
+                  </div>
+                  {index % 2 === 0 && (
+                    <div className="bg-indigo-100 text-indigo-700 text-xs font-medium px-2.5 py-1 rounded">
+                      Active
+                    </div>
+                  )}
+                </div>
                 
-                <div className="flex flex-wrap gap-3 mb-4">
+                <div className="flex flex-wrap mb-1">
                   {job.location && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <MapPin className="h-4 w-4 mr-1 text-gray-500" />
-                      {job.location}
+                    <div className="flex items-center mr-6 mb-2">
+                      <MapPin className="h-4 w-4 text-gray-500 mr-2" />
+                      <span className="text-sm text-gray-700">{job.location}</span>
                     </div>
                   )}
                   
                   {job.salary && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <DollarSign className="h-4 w-4 mr-1 text-gray-500" />
-                      {job.salary}
+                    <div className="flex items-center mb-2">
+                      <DollarSign className="h-4 w-4 text-gray-500 mr-2" />
+                      <span className="text-sm text-gray-700">{job.salary}</span>
                     </div>
                   )}
-                  
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="h-4 w-4 mr-1 text-gray-500" />
-                    {job.created_at instanceof Date
-                      ? job.created_at.toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric'
-                        })
-                      : 'Unknown date'}
-                  </div>
                 </div>
                 
-                <div className="text-gray-700 mb-4 whitespace-pre-wrap">
-                  {job.desc.length > 200 
-                    ? `${job.desc.substring(0, 200)}...` 
-                    : job.desc}
+                <div className="flex items-center mb-3">
+                  <Clock className="h-4 w-4 text-gray-500 mr-2" />
+                  <span className="text-sm text-gray-700">
+                    {job.created_at instanceof Date
+                      ? new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(
+                          -Math.round((Date.now() - job.created_at.getTime()) / (1000 * 60 * 60 * 24)),
+                          'day'
+                        ).replace('in ', '')
+                      : 'Recently posted'}
+                  </span>
                 </div>
-              </div>
+                
+                {/* Description Preview */}
+                <div className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  {job.desc}
+                </div>
+                
+                {/* Skills Tags */}
+                {job.skills && job.skills.length > 0 && (
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-1.5">
+                      {job.skills.slice(0, 3).map((skill, i) => (
+                        <span 
+                          key={i}
+                          className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                      {job.skills.length > 3 && (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                          +{job.skills.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+                
+                <div className="flex justify-between items-center">
+                  <Link
+                    href={`/job/${job.id}`}
+                    target="_blank"
+                    className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-700"
+                  >
+                    View Details
+                    <ExternalLink className="ml-1 w-4 h-4" />
+                  </Link>
+                  
+                  {job.contactLink && (
+                    <div className="text-xs text-gray-500">
+                      {job.contactLink.includes('@') ? 'Email contact set' : 'Application link set'}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-8">
+              <nav className="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <button
+                  onClick={goToPrevPage}
+                  disabled={currentPage === 1}
+                  className={`relative inline-flex items-center px-3 py-2 rounded-l-md border ${
+                    currentPage === 1 
+                      ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                
+                {getPageRange().map(number => (
+                  <button
+                    key={number}
+                    onClick={() => paginate(number)}
+                    className={`relative inline-flex items-center px-4 py-2 border ${
+                      currentPage === number
+                        ? 'z-10 bg-indigo-600 text-white border-indigo-600' 
+                        : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {number}
+                  </button>
+                ))}
+                
+                <button
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPages}
+                  className={`relative inline-flex items-center px-3 py-2 rounded-r-md border ${
+                    currentPage === totalPages 
+                      ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </nav>
             </div>
-          ))
-        )}
-      </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

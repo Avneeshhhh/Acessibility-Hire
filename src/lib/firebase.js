@@ -240,6 +240,8 @@ export const createJobPost = async (jobData) => {
       desc: jobData.desc,
       location: jobData.location,
       salary: jobData.salary,
+      skills: jobData.skills || [],
+      contactLink: jobData.contactLink || '',
       created_at: serverTimestamp(),
       orgId: organization.id,
       userId: user.uid // For additional security
