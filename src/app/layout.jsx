@@ -13,7 +13,7 @@ const poppins = Poppins({
 export const metadata = {
   metadataBase: new URL('https://accessibilityhire.io'),
   title: {
-    default: "Accessibility Hire",
+    default: "inclusyn",
     template: "%s | Accessibility Hire"
   },
   description: "Accessibility Hire is an intelligent talent platform that streamlines recruitment with AI-powered candidate matching, automated screening, and smart analytics. Find top talent 3x faster.",

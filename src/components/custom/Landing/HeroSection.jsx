@@ -56,21 +56,21 @@ const HeroSection = () => {
   };
 
   return (
-    <section ref={heroRef} className="relative min-h-[95vh] w-full flex items-center overflow-hidden py-10 md:py-16 mt-16">
+    <section ref={heroRef} className="relative min-h-[90vh] md:min-h-[95vh] w-full flex items-center overflow-hidden py-8 md:py-12 lg:py-16 mt-16">
       {/* Modern Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Base color */}
         <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-gray-100/60"></div>
         
         {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-70" aria-hidden="true"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:1rem_1rem] md:bg-[size:1.5rem_1.5rem] opacity-70" aria-hidden="true"></div>
         
-        {/* Decorative blurs */}
+        {/* Decorative blurs - Adjusted for better mobile performance */}
         <motion.div 
           variants={glowVariants}
           initial="initial"
           animate="animate"
-          className="absolute top-20 right-1/3 w-[600px] h-[600px] rounded-full bg-gray-200/20 blur-[150px]" 
+          className="absolute top-20 right-1/3 w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full bg-gray-200/20 blur-[100px] md:blur-[150px]" 
           aria-hidden="true"
         ></motion.div>
         <motion.div 
@@ -117,7 +117,7 @@ const HeroSection = () => {
       </div>
       
       {/* Main content container */}
-      <div className="container-fluid relative z-10 mx-auto px-4 sm:px-5 md:px-6 lg:px-10 xl:px-14 2xl:px-16 max-w-[1920px]">
+      <div className="container-fluid relative z-10 mx-auto px-4 sm:px-5 md:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1920px]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -125,16 +125,16 @@ const HeroSection = () => {
           style={{ y, opacity }}
           className="max-w-full mx-auto"
         >
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 xl:gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 lg:gap-12 xl:gap-16">
             {/* Left content area */}
-            <div className="md:col-span-7 lg:col-span-6 xl:col-span-6 xl:pl-8 2xl:pl-16 pt-6 md:pt-12">
+            <div className="md:col-span-7 lg:col-span-6 xl:col-span-6 xl:pl-4 2xl:pl-8 pt-4 md:pt-8 lg:pt-12">
               {/* Branded badge */}
            
               
               {/* Primary headline */}
               <motion.h1 
                 variants={itemVariants}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-7 text-gray-900"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.15] mb-4 md:mb-6 lg:mb-7 text-gray-900"
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-800 via-gray-900 to-black">Your Bridge</span>
                 <span className="block mt-2">to <span className="relative inline-block">
@@ -148,7 +148,7 @@ const HeroSection = () => {
               {/* Secondary headline */}
               <motion.h2
                 variants={itemVariants}
-                className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-700 mb-7 max-w-2xl"
+                className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-700 mb-4 md:mb-6 lg:mb-7 max-w-2xl"
               >
                 Connecting talent with inclusive employers who value diversity
               </motion.h2>
@@ -156,7 +156,7 @@ const HeroSection = () => {
               {/* Description with accent */}
               <motion.p 
                 variants={itemVariants}
-                className="text-base md:text-lg text-gray-600 leading-relaxed mb-10 max-w-2xl"
+                className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8 lg:mb-10 max-w-2xl"
               >
                 Explore an extensive selection of job opportunities specifically 
                 designed for professionals with disabilities. Become a member of 
@@ -167,7 +167,7 @@ const HeroSection = () => {
               {/* Modern CTA Buttons */}
               <motion.div 
                 variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-5 mb-10"
+                className="flex flex-col sm:flex-row gap-3 md:gap-4 lg:gap-5 mb-6 md:mb-8 lg:mb-10"
               >
                 <Link href="/jobs">
                   <motion.button 
@@ -214,21 +214,21 @@ const HeroSection = () => {
             </div>
             
             {/* Right content area */}
-            <div className="md:col-span-5 lg:col-span-6 xl:col-span-6">
+            <div className="md:col-span-5 lg:col-span-6 xl:col-span-6 mt-8 md:mt-0">
               <motion.div
                 variants={itemVariants}
                 className="relative w-full h-full flex items-center justify-center"
               >
-                <div className="relative w-full max-w-xl mx-auto">
+                <div className="relative w-full max-w-md md:max-w-xl mx-auto">
                   <Image 
                     src="/images/img2.jpeg" 
                     alt="Accessibility Hire - Professional Connection"
                     width={700} 
                     height={600}
-                    className="rounded-2xl shadow-2xl object-cover"
+                    className="rounded-xl md:rounded-2xl shadow-xl md:shadow-2xl object-cover"
                     priority
                   />
-                  <div className="absolute inset-0 rounded-2xl border border-white/20 shadow-lg"></div>
+                  <div className="absolute inset-0 rounded-xl md:rounded-2xl border border-white/20 shadow-lg"></div>
                 </div>
               </motion.div>
             </div>

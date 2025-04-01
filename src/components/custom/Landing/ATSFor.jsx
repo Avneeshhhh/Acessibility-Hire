@@ -103,31 +103,31 @@ const ATSFor = () => {
   };
 
   return (
-    <div className="py-12 w-full bg-white">
+    <div className="py-8 md:py-12 w-full bg-white">
       {/* Job Seekers Section */}
-      <section className="py-20 w-full relative overflow-hidden">
+      <section className="py-12 md:py-16 lg:py-20 w-full relative overflow-hidden">
         {/* Background Elements - Enhanced */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] opacity-40"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] md:bg-[size:2.5rem_2.5rem] opacity-40"></div>
           {/* Enhanced background circles */}
-          <div className="absolute top-10 left-1/4 w-[500px] h-[500px] rounded-full bg-gray-100/20 blur-[120px] opacity-30" aria-hidden="true"></div>
-          <div className="absolute bottom-20 right-10 w-[400px] h-[400px] rounded-full bg-purple-100/20 blur-[80px] opacity-20" aria-hidden="true"></div>
+          <div className="absolute top-10 left-1/4 w-[300px] md:w-[500px] h-[300px] md:h-[500px] rounded-full bg-gray-100/20 blur-[80px] md:blur-[120px] opacity-30" aria-hidden="true"></div>
+          <div className="absolute bottom-20 right-10 w-[250px] md:w-[400px] h-[250px] md:h-[400px] rounded-full bg-purple-100/20 blur-[60px] md:blur-[80px] opacity-20" aria-hidden="true"></div>
         </div>
 
-        <div className="container-fluid mx-auto px-3 sm:px-5 md:px-6 lg:px-10 xl:px-14 2xl:px-16 max-w-[1920px] relative z-10">
+        <div className="container-fluid mx-auto px-4 sm:px-5 md:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1920px] relative z-10">
           {/* Section Header - More Prominent */}
-          <div className="text-center max-w-4xl mx-auto mb-14">
+          <div className="text-center max-w-3xl md:max-w-4xl mx-auto mb-8 md:mb-12 lg:mb-14">
             {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 text-sm font-semibold bg-gray-50 text-gray-800 rounded-full border border-gray-200">
               <Users className="w-4 h-4" />
               <span>Career Empowerment</span>
             </div> */}
             
-            <h2 className="text-4xl md:text-5xl font-bold mb-5 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-5 tracking-tight">
               <span className="text-gray-800">Unlocking</span> Career 
               <span className="relative"> Possibilities</span>
             </h2>
             
-            <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg lg:text-xl text-gray-700 max-w-2xl md:max-w-3xl mx-auto leading-relaxed">
               We're redefining how professionals with disabilities connect with inclusive employers and life-changing opportunities through innovative technology.
             </p>
           </div>
@@ -136,7 +136,7 @@ const ATSFor = () => {
           {isClient && (
             <div className="max-w-[1800px] mx-auto">
               {/* Feature Cards - Larger Grid with wider spacing */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 xl:gap-12 mb-16 px-0 xl:px-8 2xl:px-16">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 xl:gap-10 mb-12 md:mb-16 px-0 xl:px-4 2xl:px-8">
                 {jobSeekerFeatures.map((feature, index) => (
                   <motion.div
                     key={feature.id}
@@ -146,9 +146,9 @@ const ATSFor = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="group"
                   >
-                    <div className="h-full bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transition-all duration-300 hover:shadow-lg">
-                      {/* Card Top Image - Increased Height */}
-                      <div className="relative h-48 overflow-hidden">
+                    <div className="h-full bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md border border-gray-100 transition-all duration-300 hover:shadow-lg">
+                      {/* Card Top Image - Adjusted Height */}
+                      <div className="relative h-40 md:h-48 overflow-hidden">
                         <Image
                           src={feature.image}
                           alt={feature.title}
@@ -159,28 +159,28 @@ const ATSFor = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                         
                         {/* Icon Badge */}
-                        <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center border border-white z-10">
-                          <feature.icon className="w-5 h-5 text-blue-600" />
+                        <div className="absolute top-3 right-3 md:top-4 md:right-4 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center border border-white z-10">
+                          <feature.icon className="w-4 h-4 md:w-5 md:h-5 text-blue-600" />
                         </div>
                         
                         {/* Title Overlay */}
-                        <div className="absolute bottom-0 left-0 p-4 w-full">
-                          <h3 className="text-xl font-bold text-white">{feature.title}</h3>
+                        <div className="absolute bottom-0 left-0 p-3 md:p-4 w-full">
+                          <h3 className="text-lg md:text-xl font-bold text-white">{feature.title}</h3>
                         </div>
                       </div>
                       
-                      {/* Card Content - More Spacious */}
-                      <div className="p-5">
-                        <p className="text-sm text-gray-600 mb-4">{feature.description}</p>
+                      {/* Card Content - Adjusted Spacing */}
+                      <div className="p-4 md:p-5">
+                        <p className="text-sm md:text-base text-gray-600 mb-3 md:mb-4">{feature.description}</p>
                         
                         {/* Benefits List */}
-                        <div className="space-y-2">
+                        <div className="space-y-1.5 md:space-y-2">
                           {feature.benefits.map((benefit, idx) => (
                             <div key={idx} className="flex items-start gap-2">
-                              <div className="w-5 h-5 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mt-0.5">
-                                <CheckCircle className="w-3 h-3 text-blue-600" />
+                              <div className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mt-0.5">
+                                <CheckCircle className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue-600" />
                               </div>
-                              <span className="text-sm text-gray-700">{benefit}</span>
+                              <span className="text-xs md:text-sm text-gray-700">{benefit}</span>
                             </div>
                           ))}
                         </div>
@@ -190,24 +190,24 @@ const ATSFor = () => {
                 ))}
               </div>
 
-              {/* Call to Action - Larger */}
+              {/* Call to Action - Adjusted Size */}
               <div className="text-center">
                 <Link href="/jobs">
-                  <button className="inline-flex items-center gap-2 px-8 py-3 bg-gray-900 hover:bg-black text-white text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group">
+                  <button className="inline-flex items-center gap-2 px-6 md:px-8 py-2.5 md:py-3 bg-gray-900 hover:bg-black text-white text-sm md:text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group">
                     <span>Explore Career Opportunities</span>
-                    <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
                 
-                <div className="mt-5 flex items-center justify-center gap-4">
+                <div className="mt-4 md:mt-5 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
                   <span className="flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-gray-700" />
-                    <span className="text-sm text-gray-500">Join 5,000+ professionals</span>
+                    <Users className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-700" />
+                    <span className="text-xs md:text-sm text-gray-500">Join 5,000+ professionals</span>
                   </span>
-                  <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span className="hidden sm:inline w-1 h-1 bg-gray-300 rounded-full"></span>
                   <span className="flex items-center gap-1.5">
-                    <Building className="w-4 h-4 text-gray-700" />
-                    <span className="text-sm text-gray-500">200+ inclusive employers</span>
+                    <Building className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-700" />
+                    <span className="text-xs md:text-sm text-gray-500">200+ inclusive employers</span>
                   </span>
                 </div>
               </div>
@@ -216,29 +216,29 @@ const ATSFor = () => {
         </div>
       </section>
 
-      {/* Employers Section - Expanded */}
-      <section className="w-full relative overflow-hidden py-16 bg-gray-50">
+      {/* Employers Section - Adjusted Spacing */}
+      <section className="w-full relative overflow-hidden py-12 md:py-16 bg-gray-50">
         {/* Enhanced Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] opacity-40"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] md:bg-[size:2.5rem_2.5rem] opacity-40"></div>
           {/* Enhanced background circles */}
-          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-gray-200/10 blur-[100px] opacity-30" aria-hidden="true"></div>
-          <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-purple-200/10 blur-[80px] opacity-20" aria-hidden="true"></div>
+          <div className="absolute top-1/4 right-1/4 w-[300px] md:w-[500px] h-[300px] md:h-[500px] rounded-full bg-gray-200/10 blur-[80px] md:blur-[100px] opacity-30" aria-hidden="true"></div>
+          <div className="absolute -bottom-20 left-1/3 w-[250px] md:w-[400px] h-[250px] md:h-[400px] rounded-full bg-purple-200/10 blur-[60px] md:blur-[80px] opacity-20" aria-hidden="true"></div>
         </div>
 
-        <div className="container-fluid mx-auto px-3 sm:px-5 md:px-6 lg:px-10 xl:px-14 2xl:px-16 max-w-[1920px] relative z-10">
-          {/* Section Header - More Compact */}
-          <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="container-fluid mx-auto px-4 sm:px-5 md:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1920px] relative z-10">
+          {/* Section Header - Adjusted Size */}
+          <div className="text-center max-w-2xl md:max-w-3xl mx-auto mb-8 md:mb-10">
             {/* <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 text-sm font-semibold bg-gray-100 text-gray-800 rounded-full border border-gray-200">
               <Building className="w-3.5 h-3.5" />
               <span>For Forward-Thinking Employers</span>
             </div> */}
             
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 tracking-tight">
               Transform Your <span className="text-gray-800">Inclusive Hiring</span>
             </h2>
             
-            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-base lg:text-lg text-gray-600 max-w-xl md:max-w-2xl mx-auto leading-relaxed">
               Connect with exceptional talent and build a workforce that thrives on diversity, innovation and inclusion.
             </p>
           </div>
