@@ -134,11 +134,11 @@ const NavBar = () => {
   return (
     <div className="w-full fixed top-0 left-0 right-0 z-[100] bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100" suppressHydrationWarning>
       <div className="container mx-auto">
-        <div className="flex items-center justify-between h-16 px-4">
+        <div className="flex items-center justify-between h-16 px-4 md:px-6">
           {/* Logo and Brand - Left aligned */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center" aria-label="Accessibility Hire Home">
-              <span className="text-2xl font-bold text-grey-800">
+              <span className="text-xl md:text-2xl font-bold text-grey-800">
                 Accessibility Hire
               </span>
             </Link>
@@ -178,11 +178,11 @@ const NavBar = () => {
           )}
 
           {/* Login/Signup or User Profile - Right aligned */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             {isClient && (
               <>
                 {user ? (
-                  <div className="flex items-center gap-3">
+                  <div className="hidden md:flex items-center gap-3">
                     {/* Notifications */}
                     <motion.button 
                       whileHover={{ scale: 1.05 }}
@@ -212,7 +212,7 @@ const NavBar = () => {
                     </motion.div>
                   </div>
                 ) : (
-                  <div className="flex items-center space-x-3">
+                  <div className="hidden md:flex items-center space-x-3">
                     <motion.button 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -237,12 +237,12 @@ const NavBar = () => {
             )}
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center ml-4">
+            <div className="md:hidden flex items-center">
               {isClient && (
                 <motion.button 
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 rounded-full bg-gray-50 border border-gray-200 text-gray-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 shadow-sm"
+                  className="p-2 rounded-full bg-gray-50 border border-gray-200 text-gray-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 shadow-sm ml-2"
                   aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-menu"
