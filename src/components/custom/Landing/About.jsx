@@ -64,12 +64,12 @@ const About = () => {
       <div className="container mx-auto px-5 relative z-10">
         {/* Section Header - Left Aligned with scroll hint */}
         <div className="text-left max-w-4xl mb-10 md:mb-12">
-          <div className="flex items-center gap-2 mb-5">
+          {/* <div className="flex items-center gap-2 mb-5">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 text-sm font-bold text-gray-900 rounded-full border border-gray-200 bg-white">
               <Sparkles className="w-4 h-4 text-gray-700" />
               <span>ABOUT US</span>
             </div>
-          </div>
+          </div> */}
           
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-gray-900">
             <span className="text-gray-800">

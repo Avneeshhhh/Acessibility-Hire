@@ -183,7 +183,7 @@ const HeroSection = () => {
                   </motion.button>
                 </Link>
                 
-                <Link href="/employers">
+                {/* <Link href="/employers">
                   <motion.button 
                     whileHover={{ scale: 1.03, boxShadow: "0 10px 25px -10px rgba(0, 0, 0, 0.1)" }}
                     whileTap={{ scale: 0.98 }}
@@ -192,7 +192,7 @@ const HeroSection = () => {
                     <Briefcase className="w-5 h-5" aria-hidden="true" />
                     For Employers
                   </motion.button>
-                </Link>
+                </Link> */}
               </motion.div>
 
               {/* Trust indicators strip */}

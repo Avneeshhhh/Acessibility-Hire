@@ -14,7 +14,7 @@ const CareerNetwork = () => {
     {
       icon: Bell,
       title: "Job Alerts",
-      description: "Get the latest jobs sent directly to your inbox with Accessibility Hire Job Alerts.",
+      description: "Get the latest jobs sent directly to your inbox with Accessibility Hire Job Alerts .",
       link: "/jobs",
       buttonText: "Set Up Alerts",
       image: "/images/img4.jpg"
@@ -23,7 +23,7 @@ const CareerNetwork = () => {
       icon: Building,
       title: "Company Search",
       description: "Search our company directory for a list of potential employers by location and sector.",
-      link: "/employers",
+      link: "/",
       buttonText: "Search Companies",
       image: "/images/img3.jpeg"
     },
@@ -31,7 +31,7 @@ const CareerNetwork = () => {
       icon: Briefcase,
       title: "Career Advice",
       description: "Get career advice including interview techniques, resume tips, and job search advice.",
-      link: "/resources",
+      link: "/",
       buttonText: "Career Advice",
       image: "/images/img2.jpeg"
     },
@@ -101,8 +101,8 @@ const CareerNetwork = () => {
               </div>
               
               {/* Card Content */}
-              <div className="p-6 lg:p-7">
-                <p className="text-base text-gray-700 mb-6">{feature.description}</p>
+              <div className="p-6 lg:p-7 flex flex-col justify-between h-[200px]">
+                <p className="text-base text-gray-700">{feature.description}</p>
                 <Link href={feature.link}>
                   <button className="w-full py-3 bg-gray-900 hover:bg-black text-white text-base font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2">
                     {feature.buttonText}
@@ -134,7 +134,7 @@ const CareerNetwork = () => {
               <div className="lg:col-span-1 flex flex-col items-center text-center p-6 lg:p-8 bg-gray-50 rounded-xl border border-gray-200">
                 <h4 className="text-xl lg:text-2xl font-bold text-gray-800 mb-3 lg:mb-4">Ready to Get Started?</h4>
                 <p className="text-base lg:text-lg text-gray-700 mb-5 lg:mb-6">Create your profile in less than 5 minutes and start connecting with inclusive employers.</p>
-                <Link href="/register">
+                <Link href="/">
                   <button className="w-full py-3 px-6 bg-gray-900 hover:bg-black text-white text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
                     Let's Get Started
                     <ArrowRight className="w-5 h-5" />

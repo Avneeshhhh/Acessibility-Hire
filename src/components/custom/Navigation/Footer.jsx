@@ -57,13 +57,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/employers" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                <Link href='/' className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
                   <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
                   <span>Company Search</span>
                 </Link>
               </li>
               <li>
-                <Link href="/resources" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                <Link href="/" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
                   <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
                   <span>Career Advice</span>
                 </Link>
@@ -77,21 +77,23 @@ const Footer = () => {
               <h3 className="text-gray-900 font-semibold mb-4 text-base">For Recruiters</h3>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/employers" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                  <Link href="/profile" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
                     <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
                     <span>Post Jobs</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/employers" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                  <Link href="/" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
                     <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
                     <span>Companies</span>
+                    
                   </Link>
                 </li>
                 <li>
-                  <Link href="/pricing" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                  <Link href="/" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
                     <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
                     <span>Pricing</span>
+                    
                   </Link>
                 </li>
               </ul>
@@ -102,13 +104,13 @@ const Footer = () => {
               <h3 className="text-gray-900 font-semibold mb-4 text-base">Company</h3>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/about" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                  <Link href="/" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
                     <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
                     <span>About Us</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
+                  <Link href="/" className="text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1.5 text-sm group focus:outline-none focus:text-blue-700">
                     <span className="w-1 h-1 rounded-full bg-gray-400 group-hover:bg-blue-700 transition-colors"></span>
                     <span>Contact Us</span>
                   </Link>

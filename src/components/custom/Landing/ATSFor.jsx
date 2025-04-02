@@ -320,7 +320,7 @@ const ATSFor = () => {
               </div>
               
               <div className="mt-8 md:mt-12 px-4 md:px-0">
-                <Link href="/employers">
+                <Link href="/">
                   <button className="inline-flex items-center text-sm md:text-base font-medium text-gray-900 hover:text-black group">
                     Learn more about our ATS 
                     <span className="ml-1 inline-block transition-transform duration-200 group-hover:translate-x-1">
