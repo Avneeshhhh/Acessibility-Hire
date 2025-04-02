@@ -191,7 +191,7 @@ const NavBar = () => {
                 <motion.button 
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 rounded-full bg-gray-50 border border-gray-200 text-gray-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 shadow-sm ml-2"
+                  className="p-2 rounded-md bg-gray-50 border border-gray-200 text-gray-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 shadow-sm ml-2"
                   aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-menu"
