@@ -46,7 +46,7 @@ export default function HomePage() {
       <HeroSection />
       <CareerNetwork />
       <ATSFor />
-      <About />
+      {/* <About /> */}
       <Footer />
       <ChatBotWrapper />
     </div>

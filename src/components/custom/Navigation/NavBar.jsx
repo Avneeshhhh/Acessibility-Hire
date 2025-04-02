@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Accessibility, User, Briefcase, Search, ChevronDown, Bell, Filter, MapPin, LogIn } from 'lucide-react';
+import { Menu, X, Accessibility, User, Briefcase, Search, ChevronDown, Bell, Filter, MapPin, LogIn, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/authContext';
@@ -73,6 +73,16 @@ const NavBar = () => {
     router.push('/profile');
   }, [router]);
 
+  const handleSignout = useCallback(async () => {
+    try {
+      const { logOut } = await import('@/lib/firebase');
+      await logOut();
+      setMobileMenuOpen(false);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  }, []);
+
   const isActive = useCallback((path) => {
     return pathname === path;
   }, [pathname]);
@@ -84,7 +94,7 @@ const NavBar = () => {
           {/* Logo and Brand - Left aligned */}
           <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center" aria-label="Accessibility Hire Home">
-              <span className="text-xl md:text-2xl font-bold text-grey-800">
+              <span className="text-xl md:text-2xl font-bold text-grey-800 -ml-7 md:-ml-8 sm:mr-auto">
                 Accessibility Hire
               </span>
             </Link>
@@ -103,6 +113,10 @@ const NavBar = () => {
                     <Briefcase className="w-4 h-4" />
                     Jobs
                   </div>
+                </NavLink>
+                
+                <NavLink href="/about" isActive={isActive('/about')}>
+                  About Us
                 </NavLink>
                 
                 {/* <NavLink href="/employers" isActive={isActive('/employers')}>
@@ -171,7 +185,7 @@ const NavBar = () => {
               </>
             )}
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Show SignOut for logged-in users */}
             <div className="md:hidden flex items-center">
               {isClient && (
                 <motion.button 
@@ -198,42 +212,43 @@ const NavBar = () => {
           <AnimatePresence>
             {mobileMenuOpen && (
               <motion.nav 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="md:hidden bg-white border-t border-gray-200"
                 id="mobile-menu"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2 }}
-                className="md:hidden bg-white/95 backdrop-blur-md py-5 px-6 shadow-lg border-t border-gray-100 rounded-b-xl"
-                aria-label="Mobile Navigation"
               >
-                <div className="space-y-3">
-                  <Link 
+                <div className="px-2 pt-2 pb-3 space-y-1">
+                  <Link
                     href="/"
-                    className={`flex items-center py-3 px-4 font-medium rounded-lg border border-gray-100 ${
-                      isActive('/') ? 'bg-gray-100 text-gray-900' : 'bg-white text-gray-800 hover:text-gray-900 hover:bg-gray-50'
+                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                      isActive('/') ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span className="mx-auto">Home</span>
+                    Home
                   </Link>
-                  
-                  <div className="relative">
-                    <Link 
-                      href="/jobs"
-                      className={`flex items-center justify-between w-full py-3 px-4 font-medium rounded-lg border border-gray-100 ${
-                        isActive('/jobs') ? 'bg-gray-100 text-gray-900' : 'bg-white text-gray-800 hover:text-gray-900 hover:bg-gray-50'
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <span className="mx-auto flex items-center">
-                        <Briefcase className="w-4 h-4 mr-2" />
-                        Jobs
-                      </span>
-                    </Link>
-                  </div>
+                  <Link
+                    href="/jobs"
+                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                      isActive('/jobs') ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Jobs
+                  </Link>
+                  <Link
+                    href="/about"
+                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                      isActive('/about') ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    About Us
+                  </Link>
                 </div>
                 
-                {!user && (
+                {!user ? (
                   <div className="grid grid-cols-1 gap-3 pt-5">
                     <motion.button 
                       whileHover={{ scale: 1.02 }}
@@ -252,6 +267,19 @@ const NavBar = () => {
                       aria-label="Sign Up"
                     >
                       Sign Up
+                    </motion.button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-3 pt-5 px-2 pb-3">
+                    <motion.button 
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="bg-gray-900 hover:bg-black text-white rounded-lg w-full py-3 h-12 text-sm font-medium shadow-sm transition-all duration-200 flex items-center justify-center"
+                      onClick={handleSignout}
+                      aria-label="Sign Out"
+                    >
+                      <LogOut className="h-5 w-5 mr-2" />
+                      Sign Out
                     </motion.button>
                   </div>
                 )}

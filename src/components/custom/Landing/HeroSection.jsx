@@ -134,7 +134,7 @@ const HeroSection = () => {
               {/* Primary headline */}
               <motion.h1 
                 variants={itemVariants}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.15] mb-4 md:mb-6 lg:mb-7 text-gray-900"
+                className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl font-bold tracking-tight leading-[1.15] mb-4 md:mb-6 lg:mb-7 text-gray-900"
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-800 via-gray-900 to-black">Your Bridge</span>
                 <span className="block mt-2">to <span className="relative inline-block">
