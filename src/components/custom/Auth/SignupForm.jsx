@@ -116,8 +116,12 @@ const SignupForm = () => {
         lastName: formData.lastName
       });
       
-      // Redirect to login or dashboard
-      router.push('/login');
+      // Check user role and redirect accordingly
+      if (user.role === 'organization') {
+        router.replace('/organization');
+      } else {
+        router.replace('/profile');
+      }
     } catch (error) {
       console.error('Registration failed', error);
       setErrors({ form: 'Registration failed. Please try again.' });
@@ -142,8 +146,12 @@ const SignupForm = () => {
       // Successful Google signup
       console.log('Google signup successful', user);
       
-      // Redirect to home page or dashboard
-      router.push('/');
+      // Check user role and redirect accordingly
+      if (user.role === 'organization') {
+        router.replace('/organization');
+      } else {
+        router.replace('/profile');
+      }
     } catch (error) {
       console.error('Google sign up failed', error);
       setErrors({ form: 'An error occurred. Please try again.' });

@@ -74,8 +74,8 @@ const LoginForm = () => {
       // Successful login
       console.log('Login successful', user);
       
-      // Redirect to home page or dashboard
-      router.push('/');
+      // Redirect to profile page
+      router.push('/profile');
     } catch (error) {
       console.error('Login failed', error);
       setErrors({ form: 'Login failed. Please try again.' });
@@ -100,8 +100,8 @@ const LoginForm = () => {
       // Successful Google login
       console.log('Google login successful', user);
       
-      // Redirect to home page or dashboard
-      router.push('/');
+      // Redirect to profile page
+      router.push('/profile');
     } catch (error) {
       console.error('Google sign in failed', error);
       setErrors({ form: 'An error occurred. Please try again.' });

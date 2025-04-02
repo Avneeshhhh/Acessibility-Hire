@@ -60,6 +60,13 @@ export default function ProfilePage() {
           Your Dashboard
         </h1>
 
+        {!user?.organization && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <h2 className="text-xl font-semibold text-blue-800 mb-2">Welcome to Your Profile!</h2>
+            <p className="text-blue-700 mb-4">To get started, please create your organization first. This will allow you to post jobs and manage your hiring process.</p>
+          </div>
+        )}
+
         <Tabs 
           defaultValue="organization" 
           value={activeTab} 
@@ -93,7 +100,7 @@ export default function ProfilePage() {
           </TabsContent>
         </Tabs>
         
-        <div className="mt-12 flex justify-center">
+        <div className="mt-12 flex justify-center mb-7">
           <button
             onClick={handleSignOut}
             className="flex items-center space-x-2 bg-red-50 text-red-700 hover:bg-red-100 px-4 py-2 rounded-lg font-medium transition-colors"

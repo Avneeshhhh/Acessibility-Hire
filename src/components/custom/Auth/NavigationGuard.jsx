@@ -19,7 +19,7 @@ const NavigationGuard = ({ children, requireAuth }) => {
     
     // If user is already authenticated and trying to access login/signup pages
     if (!requireAuth && user) {
-      router.push('/');
+      router.push('/profile');
     }
   }, [user, loading, requireAuth, router]);
 
