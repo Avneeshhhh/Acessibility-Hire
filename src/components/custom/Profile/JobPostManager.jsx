@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { createJobPost, getUserJobPosts, getUserOrganization } from '@/lib/firebase';
+import { createJobPost, getUserJobPosts, getUserOrganization, deleteJobPost, updateJobPost } from '@/lib/firebase';
 import { useAuth } from '@/lib/authContext';
-import { Briefcase, MapPin, DollarSign, FileText, Calendar, PlusCircle, RefreshCw, Link as LinkIcon, Tag, Clock, Building2, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Briefcase, MapPin, DollarSign, FileText, Calendar, PlusCircle, RefreshCw, Link as LinkIcon, Tag, Clock, Building2, ChevronLeft, ChevronRight, ExternalLink, Edit2, Trash2, AlertTriangle, X } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const JobPostManager = () => {
   const { user } = useAuth();
@@ -15,6 +15,7 @@ const JobPostManager = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [editingJob, setEditingJob] = useState(null);
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,6 +28,8 @@ const JobPostManager = () => {
   const [salary, setSalary] = useState('');
   const [skills, setSkills] = useState('');
   const [contactLink, setContactLink] = useState('');
+
+  const [deleteConfirmation, setDeleteConfirmation] = useState({ show: false, jobId: null });
 
   const fetchData = async () => {
     if (!user) return;
@@ -141,6 +144,23 @@ const JobPostManager = () => {
       });
       
       if (success) {
+        // Create a new job object with the current data
+        const newJob = {
+          id: jobId,
+          title,
+          desc,
+          location,
+          salary,
+          skills: skillsArray,
+          contactLink,
+          created_at: new Date(),
+          organization,
+          userId: user.uid
+        };
+        
+        // Update the local state immediately
+        setJobPosts(prevJobs => [newJob, ...prevJobs]);
+        
         setSuccess('Job posted successfully!');
         setShowForm(false);
         
@@ -151,9 +171,6 @@ const JobPostManager = () => {
         setSalary('');
         setSkills('');
         setContactLink('');
-        
-        // Refresh job posts
-        fetchData();
       } else {
         console.error("Error creating job post:", error);
         setError(error?.message || 'Failed to create job post. Please try again.');
@@ -165,7 +182,116 @@ const JobPostManager = () => {
       setIsSubmitting(false);
     }
   };
-  
+
+  const handleDeleteJob = async (jobId) => {
+    try {
+      const { success, error } = await deleteJobPost(jobId);
+      
+      if (success) {
+        // Update local state immediately
+        setJobPosts(prevJobs => prevJobs.filter(job => job.id !== jobId));
+        setSuccess('Job post deleted successfully!');
+      } else {
+        setError(error || 'Failed to delete job post');
+      }
+    } catch (err) {
+      console.error("Error deleting job post:", err);
+      setError('An unexpected error occurred while deleting the job post');
+    } finally {
+      setDeleteConfirmation({ show: false, jobId: null });
+    }
+  };
+
+  const handleEditJob = (job) => {
+    setEditingJob(job);
+    setTitle(job.title);
+    setDesc(job.desc);
+    setLocation(job.location);
+    setSalary(job.salary);
+    setSkills(job.skills.join(', '));
+    setContactLink(job.contactLink);
+    setShowForm(true);
+  };
+
+  const handleUpdateJob = async (e) => {
+    e.preventDefault();
+    
+    if (!editingJob) return;
+    
+    setIsSubmitting(true);
+    setError('');
+    setSuccess('');
+    
+    // Form validation
+    if (!title.trim()) {
+      setError('Job title is required');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    if (!desc.trim()) {
+      setError('Job description is required');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // Parse skills from comma-separated list to array
+    const skillsArray = skills.trim() 
+      ? skills.split(',').map(skill => skill.trim()).filter(Boolean)
+      : [];
+    
+    try {
+      const { success, error } = await updateJobPost(editingJob.id, {
+        title,
+        desc,
+        location,
+        salary,
+        skills: skillsArray,
+        contactLink
+      });
+      
+      if (success) {
+        // Create updated job object
+        const updatedJob = {
+          ...editingJob,
+          title,
+          desc,
+          location,
+          salary,
+          skills: skillsArray,
+          contactLink,
+          updated_at: new Date()
+        };
+        
+        // Update local state immediately
+        setJobPosts(prevJobs => 
+          prevJobs.map(job => 
+            job.id === editingJob.id ? updatedJob : job
+          )
+        );
+        
+        setSuccess('Job post updated successfully!');
+        setShowForm(false);
+        setEditingJob(null);
+        
+        // Reset form
+        setTitle('');
+        setDesc('');
+        setLocation('');
+        setSalary('');
+        setSkills('');
+        setContactLink('');
+      } else {
+        setError(error || 'Failed to update job post');
+      }
+    } catch (err) {
+      console.error("Error updating job post:", err);
+      setError('An unexpected error occurred while updating the job post');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Animation variants for staggered animations
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -271,9 +397,11 @@ const JobPostManager = () => {
       {/* Job Post Form */}
       {showForm && (
         <div className="mb-8 border border-gray-200 rounded-xl p-6 bg-gray-50">
-          <h3 className="text-lg font-semibold mb-4 text-gray-800">Create New Job Post</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">
+            {editingJob ? 'Edit Job Post' : 'Create New Job Post'}
+          </h3>
           
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={editingJob ? handleUpdateJob : handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                 Job Title <span className="text-red-500">*</span>
@@ -393,7 +521,17 @@ const JobPostManager = () => {
             <div className="flex justify-end space-x-3 pt-3">
               <button
                 type="button"
-                onClick={() => setShowForm(false)}
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingJob(null);
+                  // Reset form
+                  setTitle('');
+                  setDesc('');
+                  setLocation('');
+                  setSalary('');
+                  setSkills('');
+                  setContactLink('');
+                }}
                 className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Cancel
@@ -403,7 +541,7 @@ const JobPostManager = () => {
                 disabled={isSubmitting}
                 className={`px-4 py-2 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                {isSubmitting ? 'Posting...' : 'Post Job'}
+                {isSubmitting ? (editingJob ? 'Updating...' : 'Posting...') : (editingJob ? 'Update Job' : 'Post Job')}
               </button>
             </div>
           </form>
@@ -442,11 +580,22 @@ const JobPostManager = () => {
                       {job.title}
                     </h3>
                   </div>
-                  {index % 2 === 0 && (
-                    <div className="bg-indigo-100 text-indigo-700 text-xs font-medium px-2.5 py-1 rounded">
-                      Active
-                    </div>
-                  )}
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleEditJob(job)}
+                      className="p-1.5 text-gray-500 hover:text-indigo-600 transition-colors"
+                      title="Edit job post"
+                    >
+                      <Edit2 className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => setDeleteConfirmation({ show: true, jobId: job.id })}
+                      className="p-1.5 text-gray-500 hover:text-red-600 transition-colors"
+                      title="Delete job post"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
                 
                 <div className="flex flex-wrap mb-1">
@@ -569,6 +718,70 @@ const JobPostManager = () => {
           )}
         </>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {deleteConfirmation.show && (
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                onClick={() => setDeleteConfirmation({ show: false, jobId: null })}
+              />
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="relative inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle bg-white rounded-2xl shadow-xl transform transition-all"
+              >
+                <div className="absolute top-0 right-0 pt-4 pr-4">
+                  <button
+                    type="button"
+                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    onClick={() => setDeleteConfirmation({ show: false, jobId: null })}
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-red-100 rounded-full">
+                  <AlertTriangle className="w-6 h-6 text-red-600" />
+                </div>
+
+                <div className="text-center">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900 mb-2">
+                    Delete Job Post
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-6">
+                    Are you sure you want to delete this job post? This action cannot be undone.
+                  </p>
+                </div>
+
+                <div className="mt-4 flex justify-center space-x-3">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={() => setDeleteConfirmation({ show: false, jobId: null })}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    onClick={() => handleDeleteJob(deleteConfirmation.jobId)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

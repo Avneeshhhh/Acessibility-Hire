@@ -2,7 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getFirestore, collection, doc, addDoc, setDoc, getDoc, getDocs, query, where, orderBy, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, collection, doc, addDoc, setDoc, getDoc, getDocs, query, where, orderBy, serverTimestamp, deleteDoc, updateDoc } from 'firebase/firestore';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -372,7 +372,13 @@ export const getUserJobPosts = async () => {
 
 export const getJobById = async (jobId) => {
   try {
-    if (!jobId) throw new Error('Job ID is required');
+    if (!jobId) {
+      return { 
+        success: false, 
+        job: null,
+        error: 'Job ID is required' 
+      };
+    }
     
     // Get the job document
     const jobRef = doc(db, 'jobpost', jobId);
@@ -391,8 +397,8 @@ export const getJobById = async (jobId) => {
     // Get the organization details
     let organization = null;
     
-    try {
-      if (jobData.orgId) {
+    if (jobData.orgId) {
+      try {
         const orgRef = doc(db, 'user-organization', jobData.orgId);
         const orgSnap = await getDoc(orgRef);
         
@@ -404,10 +410,10 @@ export const getJobById = async (jobId) => {
             about: orgSnap.data().about || ''
           };
         }
+      } catch (orgError) {
+        console.error("Error fetching organization details:", orgError);
+        // Continue without organization details rather than failing
       }
-    } catch (orgError) {
-      console.error("Error fetching organization details:", orgError);
-      // Continue without organization details rather than failing
     }
     
     const job = {
@@ -428,6 +434,86 @@ export const getJobById = async (jobId) => {
       success: false, 
       job: null,
       error: error.message || "Failed to fetch job details" 
+    };
+  }
+};
+
+export const deleteJobPost = async (jobId) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) throw new Error('No user logged in');
+    
+    // Get the job document
+    const jobRef = doc(db, 'jobpost', jobId);
+    const jobSnap = await getDoc(jobRef);
+    
+    if (!jobSnap.exists()) {
+      throw new Error('Job post not found');
+    }
+    
+    const jobData = jobSnap.data();
+    
+    // Verify the user owns this job post
+    if (jobData.userId !== user.uid) {
+      throw new Error('You do not have permission to delete this job post');
+    }
+    
+    // Delete the job post
+    await deleteDoc(jobRef);
+    
+    return { 
+      success: true, 
+      error: null 
+    };
+  } catch (error) {
+    console.error("deleteJobPost error:", error);
+    return { 
+      success: false, 
+      error: error.message || "Failed to delete job post" 
+    };
+  }
+};
+
+export const updateJobPost = async (jobId, jobData) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) throw new Error('No user logged in');
+    
+    // Get the job document
+    const jobRef = doc(db, 'jobpost', jobId);
+    const jobSnap = await getDoc(jobRef);
+    
+    if (!jobSnap.exists()) {
+      throw new Error('Job post not found');
+    }
+    
+    const existingJob = jobSnap.data();
+    
+    // Verify the user owns this job post
+    if (existingJob.userId !== user.uid) {
+      throw new Error('You do not have permission to update this job post');
+    }
+    
+    // Update the job post
+    await updateDoc(jobRef, {
+      title: jobData.title,
+      desc: jobData.desc,
+      location: jobData.location,
+      salary: jobData.salary,
+      skills: jobData.skills || [],
+      contactLink: jobData.contactLink || '',
+      updated_at: serverTimestamp()
+    });
+    
+    return { 
+      success: true, 
+      error: null 
+    };
+  } catch (error) {
+    console.error("updateJobPost error:", error);
+    return { 
+      success: false, 
+      error: error.message || "Failed to update job post" 
     };
   }
 };

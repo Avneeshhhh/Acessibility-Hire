@@ -319,7 +319,7 @@ const ATSFor = () => {
                 </div>
               </div>
               
-              <div className="mt-8 md:mt-12 px-5 md:px-0">
+              {/* <div className="mt-8 md:mt-12 px-5 md:px-0">
                 <Link href="/">
                   <button className="inline-flex items-center text-sm md:text-base font-medium text-gray-900 hover:text-black group">
                     Learn more about our ATS 
@@ -328,7 +328,7 @@ const ATSFor = () => {
                     </span>
                   </button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           )}
         </div>

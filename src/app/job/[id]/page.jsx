@@ -16,7 +16,11 @@ export default function JobDetailPage() {
 
   useEffect(() => {
     async function fetchJobDetails() {
-      if (!id) return;
+      if (!id) {
+        setError('Job ID is missing');
+        setIsLoading(false);
+        return;
+      }
       
       setIsLoading(true);
       setError('');
@@ -27,7 +31,7 @@ export default function JobDetailPage() {
         if (success && job) {
           setJob(job);
         } else {
-          throw new Error(error || 'Failed to fetch job details');
+          setError(error || 'Failed to fetch job details');
         }
       } catch (err) {
         console.error('Error fetching job details:', err);
@@ -41,6 +45,8 @@ export default function JobDetailPage() {
   }, [id]);
 
   const handleApply = () => {
+    if (!job) return;
+    
     if (!user && !job.contactLink) {
       router.push('/login?redirect=' + encodeURIComponent(`/job/${id}`));
       return;
@@ -86,16 +92,25 @@ export default function JobDetailPage() {
     return (
       <div className="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <div className="bg-red-50 text-red-700 p-6 rounded-xl mb-6 border border-red-100">
-            <h2 className="text-xl font-bold mb-2">Error</h2>
-            <p>{error || 'Job not found'}</p>
-            <Link 
-              href="/jobs" 
-              className="mt-4 inline-flex items-center text-red-700 font-medium hover:text-red-800"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1.5" />
-              Back to jobs
-            </Link>
+          <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200">
+            <div className="p-6">
+              <div className="flex items-center justify-center">
+                <Briefcase className="h-12 w-12 text-gray-400" />
+              </div>
+              <h2 className="mt-4 text-center text-xl font-semibold text-gray-900">Job Not Found</h2>
+              <p className="mt-2 text-center text-gray-600">
+                {error || 'This job posting may have been removed or is no longer available.'}
+              </p>
+              <div className="mt-6 text-center">
+                <Link 
+                  href="/jobs" 
+                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  <ArrowLeft className="h-4 w-4 mr-1.5" />
+                  Back to Jobs
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
