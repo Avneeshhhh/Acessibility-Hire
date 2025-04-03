@@ -349,24 +349,24 @@ const JobPostManager = () => {
   }
 
   return (
-    <div className="bg-white rounded-xl p-6 md:p-8 shadow-md">
-      <div className="flex justify-between items-center mb-6">
+    <div className="bg-white rounded-xl p-4 sm:p-6 md:p-8 shadow-md">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
             {organization.org_name}'s Job Posts
           </h2>
           {jobPosts.length > 0 && (
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-sm mt-1">
               {jobPosts.length} {jobPosts.length === 1 ? 'job' : 'jobs'} posted
               {jobPosts.length > jobsPerPage && ` (Showing ${indexOfFirstJob + 1}-${Math.min(indexOfLastJob, jobPosts.length)} of ${jobPosts.length})`}
             </p>
           )}
         </div>
         
-        <div className="flex space-x-2">
+        <div className="flex gap-2">
           <button
             onClick={() => fetchData()}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md flex items-center text-sm"
+            className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-3 sm:px-4 rounded-md flex items-center text-sm"
             title="Refresh"
           >
             <RefreshCw className="h-4 w-4" />
@@ -374,9 +374,9 @@ const JobPostManager = () => {
           
           <button
             onClick={() => setShowForm(!showForm)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md flex items-center text-sm"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-3 sm:px-4 rounded-md flex items-center text-sm flex-1 sm:flex-none justify-center"
           >
-            <PlusCircle className="h-4 w-4 mr-1" />
+            <PlusCircle className="h-4 w-4 mr-1.5" />
             Post a Job
           </button>
         </div>
@@ -550,173 +550,113 @@ const JobPostManager = () => {
       
       {/* Job Posts List */}
       {jobPosts.length === 0 ? (
-        <div className="text-center py-12 border border-dashed border-gray-300 rounded-xl bg-gray-50">
-          <Briefcase className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-700 mb-2">No Job Posts Yet</h3>
-          <p className="text-gray-500 mb-6 max-w-md mx-auto">
+        <div className="text-center py-8 sm:py-12 border border-dashed border-gray-300 rounded-xl bg-gray-50">
+          <Briefcase className="h-10 sm:h-12 w-10 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+          <h3 className="text-base sm:text-lg font-medium text-gray-700 mb-2">No Job Posts Yet</h3>
+          <p className="text-sm sm:text-base text-gray-500 mb-6 max-w-md mx-auto">
             Your organization hasn't posted any jobs yet. Click "Post a Job" to create your first job listing.
           </p>
         </div>
       ) : (
-        <>
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
-          >
-            {currentJobs.map((job, index) => (
-              <motion.div
-                key={job.id}
-                variants={itemVariants}
-                className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow"
-              >
-                <div className="flex justify-between items-start mb-1">
-                  <div>
-                    <div className="text-sm text-gray-700 mb-1">
-                      {organization.org_name}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {job.title}
-                    </h3>
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8"
+        >
+          {currentJobs.map((job) => (
+            <motion.div
+              key={job.id}
+              variants={itemVariants}
+              className="bg-white rounded-lg border border-gray-200 p-4 sm:p-5 hover:shadow-md transition-shadow"
+            >
+              <div className="flex justify-between items-start mb-2">
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm text-gray-700 mb-1 truncate">
+                    {organization.org_name}
                   </div>
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleEditJob(job)}
-                      className="p-1.5 text-gray-500 hover:text-indigo-600 transition-colors"
-                      title="Edit job post"
-                    >
-                      <Edit2 className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={() => setDeleteConfirmation({ show: true, jobId: job.id })}
-                      className="p-1.5 text-gray-500 hover:text-red-600 transition-colors"
-                      title="Delete job post"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
-                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 truncate">
+                    {job.title}
+                  </h3>
                 </div>
-                
-                <div className="flex flex-wrap mb-1">
-                  {job.location && (
-                    <div className="flex items-center mr-6 mb-2">
-                      <MapPin className="h-4 w-4 text-gray-500 mr-2" />
-                      <span className="text-sm text-gray-700">{job.location}</span>
-                    </div>
-                  )}
-                  
-                  {job.salary && (
-                    <div className="flex items-center mb-2">
-                      <DollarSign className="h-4 w-4 text-gray-500 mr-2" />
-                      <span className="text-sm text-gray-700">{job.salary}</span>
-                    </div>
-                  )}
+                <div className="flex gap-1 sm:gap-2 ml-2 flex-shrink-0">
+                  <button
+                    onClick={() => handleEditJob(job)}
+                    className="p-1.5 text-gray-500 hover:text-indigo-600 transition-colors"
+                    title="Edit job post"
+                  >
+                    <Edit2 className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => setDeleteConfirmation({ show: true, jobId: job.id })}
+                    className="p-1.5 text-gray-500 hover:text-red-600 transition-colors"
+                    title="Delete job post"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
                 </div>
-                
-                <div className="flex items-center mb-3">
-                  <Clock className="h-4 w-4 text-gray-500 mr-2" />
-                  <span className="text-sm text-gray-700">
-                    {job.created_at instanceof Date
-                      ? new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(
-                          -Math.round((Date.now() - job.created_at.getTime()) / (1000 * 60 * 60 * 24)),
-                          'day'
-                        ).replace('in ', '')
-                      : 'Recently posted'}
-                  </span>
-                </div>
-                
-                {/* Description Preview */}
-                <div className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  {job.desc}
-                </div>
-                
-                {/* Skills Tags */}
-                {job.skills && job.skills.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-1.5">
-                      {job.skills.slice(0, 3).map((skill, i) => (
-                        <span 
-                          key={i}
-                          className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                      {job.skills.length > 3 && (
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-                          +{job.skills.length - 3} more
-                        </span>
-                      )}
-                    </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 sm:gap-3 text-sm text-gray-600">
+                {job.location && (
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span className="truncate">{job.location}</span>
                   </div>
                 )}
-                
-                <div className="flex justify-between items-center">
-                  <Link
-                    href={`/job/${job.id}`}
-                    target="_blank"
-                    className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-700"
-                  >
-                    View Details
-                    <ExternalLink className="ml-1 w-4 h-4" />
-                  </Link>
-                  
-                  {job.contactLink && (
-                    <div className="text-xs text-gray-500">
-                      {job.contactLink.includes('@') ? 'Email contact set' : 'Application link set'}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                {job.salary && (
+                  <div className="flex items-center">
+                    <DollarSign className="h-4 w-4 mr-1" />
+                    <span className="truncate">{job.salary}</span>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
+
+      {/* Pagination */}
+      {jobPosts.length > jobsPerPage && (
+        <div className="flex items-center justify-center space-x-2 mt-6">
+          <button
+            onClick={goToPrevPage}
+            disabled={currentPage === 1}
+            className={`p-2 rounded-md ${
+              currentPage === 1
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
           
-          {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="flex justify-center mt-8">
-              <nav className="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                <button
-                  onClick={goToPrevPage}
-                  disabled={currentPage === 1}
-                  className={`relative inline-flex items-center px-3 py-2 rounded-l-md border ${
-                    currentPage === 1 
-                      ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
-                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                
-                {getPageRange().map(number => (
-                  <button
-                    key={number}
-                    onClick={() => paginate(number)}
-                    className={`relative inline-flex items-center px-4 py-2 border ${
-                      currentPage === number
-                        ? 'z-10 bg-indigo-600 text-white border-indigo-600' 
-                        : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
-                    }`}
-                  >
-                    {number}
-                  </button>
-                ))}
-                
-                <button
-                  onClick={goToNextPage}
-                  disabled={currentPage === totalPages}
-                  className={`relative inline-flex items-center px-3 py-2 rounded-r-md border ${
-                    currentPage === totalPages 
-                      ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' 
-                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </nav>
-            </div>
-          )}
-        </>
+          {getPageRange().map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              className={`px-3 py-1 rounded-md text-sm font-medium ${
+                currentPage === number
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              {number}
+            </button>
+          ))}
+          
+          <button
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+            className={`p-2 rounded-md ${
+              currentPage === totalPages
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
       )}
 
       {/* Delete Confirmation Modal */}

@@ -55,15 +55,15 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <NavBar />
-      <div className="max-w-4xl mx-auto mt-20">
-        <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+        <h1 className="text-2xl sm:text-3xl font-bold leading-tight text-gray-900 mb-6 sm:mb-8">
           Your Dashboard
         </h1>
 
         {!user?.organization && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-blue-800 mb-2">Welcome to Your Profile!</h2>
-            <p className="text-blue-700 mb-4">To get started, please create your organization first. This will allow you to post jobs and manage your hiring process.</p>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+            <h2 className="text-lg sm:text-xl font-semibold text-blue-800 mb-2">Welcome to Your Profile!</h2>
+            <p className="text-blue-700 text-sm sm:text-base">To get started, please create your organization first. This will allow you to post jobs and manage your hiring process.</p>
           </div>
         )}
 
@@ -71,12 +71,12 @@ export default function ProfilePage() {
           defaultValue="organization" 
           value={activeTab} 
           onValueChange={handleTabChange} 
-          className="space-y-6"
+          className="space-y-4 sm:space-y-6"
         >
-          <TabsList className="bg-gray-100 p-1 rounded-lg">
+          <TabsList className="bg-gray-100 p-1 rounded-lg flex flex-wrap sm:flex-nowrap gap-2 sm:gap-0">
             <TabsTrigger 
               value="organization" 
-              className="flex items-center space-x-2 data-[state=active]:bg-white rounded-md px-4 py-2"
+              className="flex items-center space-x-2 data-[state=active]:bg-white rounded-md px-3 sm:px-4 py-2 flex-1 sm:flex-none min-w-[120px]"
             >
               <Building2 className="h-4 w-4" />
               <span>Organization</span>
@@ -84,18 +84,18 @@ export default function ProfilePage() {
             
             <TabsTrigger 
               value="jobs" 
-              className="flex items-center space-x-2 data-[state=active]:bg-white rounded-md px-4 py-2"
+              className="flex items-center space-x-2 data-[state=active]:bg-white rounded-md px-3 sm:px-4 py-2 flex-1 sm:flex-none min-w-[120px]"
             >
               <Briefcase className="h-4 w-4" />
               <span>Job Posts</span>
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="organization" className="space-y-6">
+          <TabsContent value="organization" className="space-y-4 sm:space-y-6">
             <OrganizationManager />
           </TabsContent>
           
-          <TabsContent value="jobs" className="space-y-6">
+          <TabsContent value="jobs" className="space-y-4 sm:space-y-6">
             <JobPostManager />
           </TabsContent>
         </Tabs>

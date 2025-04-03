@@ -246,6 +246,20 @@ const NavBar = () => {
                   >
                     About Us
                   </Link>
+                  {user && (
+                    <Link
+                      href="/profile"
+                      className={`block px-3 py-2 rounded-md text-base font-medium ${
+                        isActive('/profile') ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="flex items-center gap-2">
+                        <User className="w-5 h-5" />
+                        Profile
+                      </div>
+                    </Link>
+                  )}
                 </div>
                 
                 {!user ? (
